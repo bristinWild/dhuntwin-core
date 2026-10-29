@@ -3,6 +3,7 @@
 #include "dhun/commons.h"
 #include "dhun/planning.h"
 #include "dhun/simulation.h"
+#include "dhun/twin_frame.h"
 
 namespace dhun::test {
 
@@ -135,6 +136,35 @@ void commonsCase(const Json& golden, Report& r)
     for (const auto& item : v["compute"]) compare(item["result"], validateComputeMonitoring(item["params"]), "validateComputeMonitoring", r);
 }
 
+void twinCase(const Json& golden, Report& r)
+{
+    for (const auto& item : golden["cases"]) {
+        const PhaseId phase = phaseOf(item["phase"]);
+        const SiteTime at = SiteTime::fromEpochMs(item["ms"].get<double>());
+        PacketMap packets;
+        for (auto it = item["packets"].begin(); it != item["packets"].end(); ++it) {
+            TelemetryPacket p;
+            p.nodeId = it.value()["nodeId"].get<std::string>();
+            p.metric = it.value()["metric"].get<std::string>();
+            p.value = it.value()["value"].get<double>();
+            if (it.value().contains("at")) p.at = it.value()["at"].get<double>();
+            packets[it.key()] = p;
+        }
+        const TwinFrame frame = buildFrame(phase, at, packets, item["wallNow"].get<double>());
+        const std::string where = item["phase"].get<std::string>() + "@" + js::toString(item["ms"].get<double>()) +
+                                  (packets.empty() ? "" : "+packets");
+        compare(item["frame"], toJson(frame), "frame." + where, r);
+        compare(item["events"], buildEvents(frame), "events." + where, r);
+        compare(item["actions"], buildActions(phase, at), "actions." + where, r);
+    }
+
+    for (const auto& item : golden["packets"]) {
+        Json parsed = Json::array();
+        for (const auto& p : parsePacket(item["raw"].get<std::string>(), 1790000009999.0)) parsed.push_back(toJson(p));
+        compare(item["parsed"], parsed, "parsePacket(" + item["raw"].get<std::string>() + ")", r);
+    }
+}
+
 }  // namespace
 
 const std::map<std::string, ParityCase>& parityCases()
@@ -143,6 +173,7 @@ const std::map<std::string, ParityCase>& parityCases()
         {"simulation", simulationCase},
         {"planning", planningCase},
         {"commons", commonsCase},
+        {"twin", twinCase},
     };
     return cases;
 }

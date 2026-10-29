@@ -87,6 +87,71 @@ async function main(): Promise<void> {
 
   await planning();
   await commons();
+  await twin();
+}
+
+/* ---------- digital twin frames, events, actions, packets ---------- */
+
+async function twin(): Promise<void> {
+  const frames = await load("twin/buildFrame.ts");
+  const source = await load("twin/source.ts");
+
+  const realNow = Date.now;
+  const runAt = <T>(wallNow: number, fn: () => T): T => {
+    Date.now = () => wallNow;
+    try {
+      return fn();
+    } finally {
+      Date.now = realNow;
+    }
+  };
+
+  const packetSets = (wallNow: number) => [
+    {},
+    {
+      "grid-hub:import": { nodeId: "grid-hub", metric: "import", value: 318.4, at: wallNow - 1000 },
+      "stp:ph": { nodeId: "stp", metric: "ph", value: 9.5, at: wallNow - 5000 },
+      "weather:rain": { nodeId: "weather", metric: "rain", value: 42, at: wallNow - 40000 },
+      "compute:pue": { nodeId: "compute", metric: "pue", value: 1.9 },
+      "irrigation:reservoir": { nodeId: "irrigation", metric: "reservoir", value: 12, at: wallNow - 29999 },
+      "solar-array:output": { nodeId: "solar-array", metric: "output", value: 50000, at: wallNow },
+    },
+  ];
+
+  const cases = PHASES.flatMap((phase) =>
+    INSTANTS.slice(0, 12).flatMap((ms, i) => {
+      const wallNow = ms + (i % 5) * 700;
+      return packetSets(wallNow).map((packets) => {
+        const frame = runAt(wallNow, () => frames.buildFrame(phase, new Date(ms), packets));
+        return {
+          phase,
+          ms,
+          wallNow,
+          packets,
+          frame,
+          events: frames.buildEvents(frame),
+          actions: frames.buildActions(phase, new Date(ms)),
+        };
+      });
+    })
+  );
+
+  const raws = [
+    '{"nodeId":"grid-hub","metric":"import","value":318.4,"at":1790000000000}',
+    '{"nodeId":"grid-hub","metric":"import","value":318.4}',
+    '[{"nodeId":"a","metric":"b","value":1},{"nodeId":"","metric":"b","value":1},{"nodeId":"c","metric":"d","value":"7"}]',
+    '{"type":"telemetry","packets":[{"nodeId":"stp","metric":"ph","value":7.2,"at":1790000000500},{"packets":[]}]}',
+    '{"nodeId":"x","metric":"y","value":1e400}',
+    "not json",
+    "42",
+    "null",
+    '{"nodeId":"x","metric":"y","value":2,"at":"soon"}',
+  ];
+
+  write("twin", {
+    cases,
+    packets: raws.map((raw) => ({ raw, parsed: runAt(1790000009999, () => source.parsePacket(raw)) })),
+  });
 }
 
 /* ---------- ledger, scenarios, compute, zone pressure ---------- */

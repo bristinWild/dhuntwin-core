@@ -37,6 +37,7 @@ add_library(dhun_engine STATIC
     src/simulation.cpp
     src/planning.cpp
     src/commons.cpp
+    src/twin_frame.cpp
     ${DHUN_EMBED_CPP}
 )
 
