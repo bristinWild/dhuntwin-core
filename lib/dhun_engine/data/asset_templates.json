@@ -1,0 +1,956 @@
+[
+ {
+  "key": "ELECTRICAL_METER",
+  "template": {
+   "templateId": "electrical-meter",
+   "name": "Class 0.5S Bidirectional Substation Meter",
+   "domain": "Energy",
+   "type": "Electrical Meter",
+   "subtype": "3-Phase Multifunction Meter",
+   "description": "Revenue-grade grid interconnection meter with power quality logging.",
+   "defaultCapacity": 500,
+   "capacityUnit": "kVA",
+   "operatingRange": {
+    "min": 0,
+    "max": 500,
+    "unit": "kW"
+   },
+   "specifications": {
+    "voltageRating": "415 V L-L / 240 V L-N",
+    "frequency": "50 Hz",
+    "accuracyClass": "Class 0.5S (IEC 62053-22)"
+   },
+   "channels": [
+    {
+     "id": "active-power",
+     "channelId": "active-power",
+     "channelType": "power",
+     "name": "Active Power",
+     "displayName": "Active Power",
+     "unit": "kW",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 15,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 0,
+      "max": 600
+     },
+     "warningThreshold": 450,
+     "criticalThreshold": 500,
+     "thresholdSource": "Transformer Continuous Rating (IEC 60076)",
+     "thresholdClassification": "Engineering-design limit",
+     "evidenceClassification": "Measured",
+     "alertThresholds": {
+      "normalMax": 450,
+      "alarmMax": 500,
+      "hysteresis": 10,
+      "ruleDescription": "Active power exceeds continuous transformer transformer rating.",
+      "suggestedAction": "Initiate load curtailment or shed deferrable compute jobs.",
+      "thresholdClassification": "Engineering-design limit"
+     }
+    },
+    {
+     "id": "imported-energy",
+     "channelId": "imported-energy",
+     "channelType": "energy",
+     "name": "Imported Energy",
+     "displayName": "Imported Energy",
+     "unit": "kWh",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 60,
+     "source": "physical_sensor",
+     "thresholdClassification": "Not configured",
+     "evidenceClassification": "Measured"
+    },
+    {
+     "id": "exported-energy",
+     "channelId": "exported-energy",
+     "channelType": "energy",
+     "name": "Exported Energy",
+     "displayName": "Exported Energy",
+     "unit": "kWh",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 60,
+     "source": "physical_sensor",
+     "thresholdClassification": "Not configured",
+     "evidenceClassification": "Measured"
+    },
+    {
+     "id": "voltage-l-n",
+     "channelId": "voltage-l-n",
+     "channelType": "voltage",
+     "name": "Line-to-Neutral Voltage",
+     "displayName": "Line-to-Neutral Voltage",
+     "unit": "V",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 15,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 180,
+      "max": 270
+     },
+     "warningThreshold": 250,
+     "criticalThreshold": 260,
+     "thresholdSource": "CEA Technical Grid Standards (Regulation 8)",
+     "thresholdClassification": "Regulatory requirement",
+     "evidenceClassification": "Measured",
+     "alertThresholds": {
+      "normalMin": 216,
+      "normalMax": 244,
+      "alarmMin": 198,
+      "alarmMax": 253,
+      "hysteresis": 3,
+      "isRegulatory": true,
+      "ruleDescription": "Grid voltage outside statutory ±6% operating envelope.",
+      "suggestedAction": "Check on-load tap changer and substation capacitor banks.",
+      "thresholdClassification": "Regulatory requirement"
+     }
+    },
+    {
+     "id": "power-factor",
+     "channelId": "power-factor",
+     "channelType": "power_factor",
+     "name": "Power Factor",
+     "displayName": "Power Factor",
+     "unit": "dimensionless",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 30,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 0.5,
+      "max": 1
+     },
+     "thresholdSource": "Discom Tariff Surcharge Clause",
+     "thresholdClassification": "Project-defined operational target",
+     "evidenceClassification": "Measured",
+     "alertThresholds": {
+      "alarmMin": 0.85,
+      "normalMin": 0.95,
+      "hysteresis": 0.02,
+      "ruleDescription": "Power factor below 0.90 penalty threshold.",
+      "suggestedAction": "Engage APFC bank capacitors.",
+      "thresholdClassification": "Project-defined operational target"
+     }
+    },
+    {
+     "id": "grid-frequency",
+     "channelId": "grid-frequency",
+     "channelType": "frequency",
+     "name": "Grid Frequency",
+     "displayName": "Grid Frequency",
+     "unit": "Hz",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 5,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 47.5,
+      "max": 52.5
+     },
+     "thresholdSource": "Indian Electricity Grid Code (IEGC 49.90–50.05 Hz)",
+     "thresholdClassification": "Regulatory requirement",
+     "evidenceClassification": "Measured",
+     "alertThresholds": {
+      "alarmMin": 49.5,
+      "alarmMax": 50.5,
+      "isRegulatory": true,
+      "ruleDescription": "Frequency deviated beyond IEGC operating band.",
+      "suggestedAction": "Prepare battery islanding if frequency continues dipping.",
+      "thresholdClassification": "Regulatory requirement"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "key": "SOLAR_INVERTER",
+  "template": {
+   "templateId": "solar-inverter",
+   "name": "100 kW Grid-Tied Solar String Inverter",
+   "domain": "Energy",
+   "type": "Solar Inverter",
+   "subtype": "Multi-MPPT String Inverter",
+   "description": "High-efficiency photovoltaic power converter with MPPT tracking.",
+   "defaultCapacity": 100,
+   "capacityUnit": "kW",
+   "operatingRange": {
+    "min": 0,
+    "max": 110,
+    "unit": "kW"
+   },
+   "specifications": {
+    "maxEfficiency": "98.8%",
+    "mpptVoltageRange": "200 V – 1000 V",
+    "cooling": "Smart forced air cooling"
+   },
+   "channels": [
+    {
+     "id": "ac-active-power",
+     "channelId": "ac-active-power",
+     "channelType": "power",
+     "name": "AC Active Power Output",
+     "displayName": "AC Active Power Output",
+     "unit": "kW",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 15,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 0,
+      "max": 110
+     },
+     "warningThreshold": 100,
+     "criticalThreshold": 105,
+     "thresholdSource": "Inverter Continuous AC Output Datasheet",
+     "thresholdClassification": "Manufacturer-specified",
+     "evidenceClassification": "Measured",
+     "alertThresholds": {
+      "normalMax": 100,
+      "alarmMax": 105,
+      "hysteresis": 2,
+      "ruleDescription": "Inverter active power exceeding continuous rating.",
+      "suggestedAction": "Verify MPPT curtailment limits.",
+      "thresholdClassification": "Manufacturer-specified"
+     }
+    },
+    {
+     "id": "energy-generated-today",
+     "channelId": "energy-generated-today",
+     "channelType": "energy",
+     "name": "Daily Energy Generated",
+     "displayName": "Daily Energy Generated",
+     "unit": "kWh",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 60,
+     "source": "physical_sensor",
+     "thresholdClassification": "Not configured",
+     "evidenceClassification": "Measured"
+    },
+    {
+     "id": "dc-input-power",
+     "channelId": "dc-input-power",
+     "channelType": "power",
+     "name": "DC Array Input Power",
+     "displayName": "DC Array Input Power",
+     "unit": "kW",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 15,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 0,
+      "max": 150
+     },
+     "thresholdClassification": "Manufacturer-specified",
+     "evidenceClassification": "Measured"
+    },
+    {
+     "id": "inverter-temperature",
+     "channelId": "inverter-temperature",
+     "channelType": "temperature",
+     "name": "Internal Heat Sink Temperature",
+     "displayName": "Internal Heat Sink Temperature",
+     "unit": "°C",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 30,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": -10,
+      "max": 95
+     },
+     "warningThreshold": 65,
+     "criticalThreshold": 75,
+     "thresholdSource": "IGBT Thermal Derating Curve (Vendor Manual)",
+     "thresholdClassification": "Manufacturer-specified",
+     "evidenceClassification": "Measured",
+     "alertThresholds": {
+      "normalMax": 65,
+      "alarmMax": 75,
+      "hysteresis": 3,
+      "ruleDescription": "Inverter thermal overload approaching derating ceiling.",
+      "suggestedAction": "Clean intake fan filters and verify shade canopy airflow.",
+      "thresholdClassification": "Manufacturer-specified"
+     }
+    },
+    {
+     "id": "conversion-efficiency",
+     "channelId": "conversion-efficiency",
+     "channelType": "efficiency",
+     "name": "Instantaneous Conversion Efficiency",
+     "displayName": "Instantaneous Conversion Efficiency",
+     "unit": "%",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 60,
+     "source": "simulation",
+     "validRange": {
+      "min": 80,
+      "max": 100
+     },
+     "thresholdSource": "Factory Acceptance Test Benchmark",
+     "thresholdClassification": "Engineering-design limit",
+     "evidenceClassification": "Calculated"
+    }
+   ]
+  }
+ },
+ {
+  "key": "BATTERY_BESS",
+  "template": {
+   "templateId": "battery-bess",
+   "name": "Lithium Ferro-Phosphate (LFP) Containerized BESS",
+   "domain": "Energy",
+   "type": "Battery Energy Storage",
+   "subtype": "LFP Chemistry with Liquid Cooling",
+   "description": "Grid support BESS for daytime solar absorption and evening peak support.",
+   "defaultCapacity": 500,
+   "capacityUnit": "kWh",
+   "operatingRange": {
+    "min": 50,
+    "max": 450,
+    "unit": "kWh"
+   },
+   "specifications": {
+    "chemistry": "LiFePO4 (LFP)",
+    "roundTripEfficiency": "88% AC-AC",
+    "nominalCrate": "0.5C Continuous",
+    "cycleLife": "6,000 cycles at 80% DOD"
+   },
+   "channels": [
+    {
+     "id": "state-of-charge",
+     "channelId": "state-of-charge",
+     "channelType": "percentage",
+     "name": "State of Charge (SOC)",
+     "displayName": "State of Charge (SOC)",
+     "unit": "%",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 15,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 0,
+      "max": 100
+     },
+     "warningThreshold": 15,
+     "criticalThreshold": 10,
+     "thresholdSource": "Cell Warranty Protocol (Do Not Deep Discharge)",
+     "thresholdClassification": "Manufacturer-specified",
+     "evidenceClassification": "Measured",
+     "alertThresholds": {
+      "alarmMin": 10,
+      "alarmMax": 95,
+      "normalMin": 15,
+      "normalMax": 90,
+      "hysteresis": 2,
+      "ruleDescription": "Battery SOC exceeded recommended 10%–95% operating corridor.",
+      "suggestedAction": "Inhibit further discharge to preserve battery cell health.",
+      "thresholdClassification": "Manufacturer-specified"
+     }
+    },
+    {
+     "id": "charge-discharge-power",
+     "channelId": "charge-discharge-power",
+     "channelType": "power",
+     "name": "Active Power Flow",
+     "displayName": "Active Power Flow (+Discharge / -Charge)",
+     "unit": "kW",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 15,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": -250,
+      "max": 250
+     },
+     "warningThreshold": 220,
+     "criticalThreshold": 250,
+     "thresholdSource": "PCS Converter Nameplate (0.5C Continuous Limit)",
+     "thresholdClassification": "Manufacturer-specified",
+     "evidenceClassification": "Measured"
+    },
+    {
+     "id": "cell-max-temperature",
+     "channelId": "cell-max-temperature",
+     "channelType": "temperature",
+     "name": "Highest Cell Module Temperature",
+     "displayName": "Highest Cell Module Temperature",
+     "unit": "°C",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 15,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 10,
+      "max": 60
+     },
+     "warningThreshold": 40,
+     "criticalThreshold": 45,
+     "thresholdSource": "UL 9540A Thermal Runway Mitigation Standard",
+     "thresholdClassification": "Regulatory requirement",
+     "evidenceClassification": "Measured",
+     "alertThresholds": {
+      "alarmMax": 45,
+      "normalMax": 38,
+      "hysteresis": 2,
+      "isRegulatory": true,
+      "ruleDescription": "Cell temperature above UL thermal runaway threshold.",
+      "suggestedAction": "Isolate DC contactor and increase chiller pump speed.",
+      "thresholdClassification": "Regulatory requirement"
+     }
+    },
+    {
+     "id": "state-of-health",
+     "channelId": "state-of-health",
+     "channelType": "percentage",
+     "name": "Battery State of Health (SOH)",
+     "displayName": "Battery State of Health (SOH)",
+     "unit": "%",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 86400,
+     "source": "simulation",
+     "validRange": {
+      "min": 50,
+      "max": 100
+     },
+     "thresholdClassification": "Manufacturer-specified",
+     "evidenceClassification": "Calculated"
+    },
+    {
+     "id": "cumulative-cycles",
+     "channelId": "cumulative-cycles",
+     "channelType": "count",
+     "name": "Equivalent Full Cycles",
+     "displayName": "Equivalent Full Cycles",
+     "unit": "count",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 3600,
+     "source": "simulation",
+     "thresholdClassification": "Manufacturer-specified",
+     "evidenceClassification": "Calculated"
+    }
+   ]
+  }
+ },
+ {
+  "key": "WATER_METER_PUMP",
+  "template": {
+   "templateId": "water-meter-pump",
+   "name": "Electromagnetic Bulk Water Flowmeter & Booster Pump",
+   "domain": "Water",
+   "type": "Water Meter & Pump",
+   "subtype": "DN100 Electromagnetic Flowmeter",
+   "description": "Revenue-grade aquifer extraction and distribution monitoring node.",
+   "defaultCapacity": 250,
+   "capacityUnit": "kL/day",
+   "operatingRange": {
+    "min": 0,
+    "max": 300,
+    "unit": "kL/day"
+   },
+   "specifications": {
+    "lineSize": "DN100 Flanged",
+    "flowRange": "0.5 – 150 m³/h",
+    "accuracy": "±0.5% of rate"
+   },
+   "channels": [
+    {
+     "id": "flow-rate",
+     "channelId": "flow-rate",
+     "channelType": "flow_rate",
+     "name": "Instantaneous Flow Rate",
+     "displayName": "Instantaneous Flow Rate",
+     "unit": "L/min",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 15,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 0,
+      "max": 2500
+     },
+     "warningThreshold": 2000,
+     "criticalThreshold": 2400,
+     "thresholdSource": "Aquifer Sustainable Yield Study (Dhun Hydrogeology 2021)",
+     "thresholdClassification": "Engineering-design limit",
+     "evidenceClassification": "Measured",
+     "alertThresholds": {
+      "normalMax": 2000,
+      "alarmMax": 2400,
+      "hysteresis": 50,
+      "ruleDescription": "Extraction flow rate exceeding safe aquifer drawdown velocity.",
+      "suggestedAction": "Throttle VFD pump speed to prevent suction vortex.",
+      "thresholdClassification": "Engineering-design limit"
+     }
+    },
+    {
+     "id": "cumulative-volume",
+     "channelId": "cumulative-volume",
+     "channelType": "volume",
+     "name": "Cumulative Volume Totalizer",
+     "displayName": "Cumulative Volume Totalizer",
+     "unit": "kL",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 60,
+     "source": "physical_sensor",
+     "thresholdClassification": "Not configured",
+     "evidenceClassification": "Measured"
+    },
+    {
+     "id": "pump-electrical-power",
+     "channelId": "pump-electrical-power",
+     "channelType": "power",
+     "name": "Pump Electrical Power",
+     "displayName": "Pump Electrical Power",
+     "unit": "kW",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 30,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 0,
+      "max": 45
+     },
+     "warningThreshold": 38,
+     "criticalThreshold": 42,
+     "thresholdSource": "Motor Thermal Protection Relay Class 10",
+     "thresholdClassification": "Manufacturer-specified",
+     "evidenceClassification": "Measured"
+    },
+    {
+     "id": "line-pressure",
+     "channelId": "line-pressure",
+     "channelType": "pressure",
+     "name": "Discharge Pressure",
+     "displayName": "Discharge Pressure",
+     "unit": "bar",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 15,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 0,
+      "max": 10
+     },
+     "warningThreshold": 6.5,
+     "criticalThreshold": 8,
+     "thresholdSource": "HDPE Pipe Burst Pressure Safety Factor (PN10 Rating)",
+     "thresholdClassification": "Engineering-design limit",
+     "evidenceClassification": "Measured",
+     "alertThresholds": {
+      "alarmMax": 8,
+      "alarmMin": 1,
+      "normalMin": 2.5,
+      "normalMax": 6,
+      "hysteresis": 0.3,
+      "ruleDescription": "Line pressure anomaly: potential water hammer or main rupture.",
+      "suggestedAction": "Inspect PRV valve and check distribution mains for burst.",
+      "thresholdClassification": "Engineering-design limit"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "key": "STP_TREATMENT_SYSTEM",
+  "template": {
+   "templateId": "stp-treatment-system",
+   "name": "Sequencing Batch Reactor (SBR) Sewage Treatment Plant",
+   "domain": "Water",
+   "type": "Water Treatment Plant",
+   "subtype": "Biological SBR with Tertiary Filtration",
+   "description": "Decentralized campus wastewater reclamation plant producing non-potable flush and irrigation water.",
+   "defaultCapacity": 150,
+   "capacityUnit": "kL/day",
+   "operatingRange": {
+    "min": 20,
+    "max": 150,
+    "unit": "kL/day"
+   },
+   "specifications": {
+    "treatmentTechnology": "SBR + Ultrafiltration + UV",
+    "recycledWaterQuality": "CPCB Non-Potable Urban Reuse Standard"
+   },
+   "channels": [
+    {
+     "id": "inlet-flow-daily",
+     "channelId": "inlet-flow-daily",
+     "channelType": "volume",
+     "name": "Daily Raw Sewage Inflow",
+     "displayName": "Daily Raw Sewage Inflow",
+     "unit": "kL/day",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 300,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 0,
+      "max": 200
+     },
+     "thresholdSource": "STP Equalization Basin Design Capacity",
+     "thresholdClassification": "Engineering-design limit",
+     "evidenceClassification": "Measured"
+    },
+    {
+     "id": "treated-outlet-daily",
+     "channelId": "treated-outlet-daily",
+     "channelType": "volume",
+     "name": "Treated Recycled Water Output",
+     "displayName": "Treated Recycled Water Output",
+     "unit": "kL/day",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 300,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 0,
+      "max": 200
+     },
+     "thresholdClassification": "Engineering-design limit",
+     "evidenceClassification": "Measured"
+    },
+    {
+     "id": "aeration-blower-power",
+     "channelId": "aeration-blower-power",
+     "channelType": "power",
+     "name": "Aeration Blower & Mixer Power",
+     "displayName": "Aeration Blower & Mixer Power",
+     "unit": "kW",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 60,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 0,
+      "max": 25
+     },
+     "thresholdClassification": "Manufacturer-specified",
+     "evidenceClassification": "Measured"
+    },
+    {
+     "id": "treated-water-turbidity",
+     "channelId": "treated-water-turbidity",
+     "channelType": "water_quality",
+     "name": "Treated Effluent Turbidity",
+     "displayName": "Treated Effluent Turbidity",
+     "unit": "NTU",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 300,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 0,
+      "max": 50
+     },
+     "warningThreshold": 2,
+     "criticalThreshold": 5,
+     "thresholdSource": "CPCB Urban Land Application Effluent Standard (<5 NTU)",
+     "thresholdClassification": "Regulatory requirement",
+     "evidenceClassification": "Measured",
+     "alertThresholds": {
+      "alarmMax": 5,
+      "normalMax": 2,
+      "hysteresis": 0.5,
+      "isRegulatory": true,
+      "ruleDescription": "Effluent turbidity exceeds CPCB discharge standard.",
+      "suggestedAction": "Backwash dual-media filters and inspect UV sterilizer tube.",
+      "thresholdClassification": "Regulatory requirement"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "key": "BUILDING_HVAC",
+  "template": {
+   "templateId": "building-hvac",
+   "name": "Smart Submetered Campus Center Envelope & HVAC",
+   "domain": "Buildings",
+   "type": "Building Node",
+   "subtype": "Mixed-Mode Passively Ventilated + Radiant Floor",
+   "description": "Campus hub with radiant slab cooling, smart metering, and indoor air quality sensors.",
+   "defaultCapacity": 2500,
+   "capacityUnit": "m²",
+   "operatingRange": {
+    "min": 30,
+    "max": 90,
+    "unit": "kWh/m²/yr"
+   },
+   "specifications": {
+    "envelopeEPI": "47.1 kWh/m²/yr target (EcoNiwas Samhita)",
+    "glazing": "Double Low-E Argon filled (SHGC 0.28)"
+   },
+   "channels": [
+    {
+     "id": "building-active-demand",
+     "channelId": "building-active-demand",
+     "channelType": "power",
+     "name": "Total Active Electrical Demand",
+     "displayName": "Total Active Electrical Demand",
+     "unit": "kW",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 30,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 0,
+      "max": 200
+     },
+     "warningThreshold": 85,
+     "criticalThreshold": 110,
+     "thresholdSource": "Connected Load Sanction Ceiling",
+     "thresholdClassification": "Engineering-design limit",
+     "evidenceClassification": "Measured"
+    },
+    {
+     "id": "indoor-ambient-temperature",
+     "channelId": "indoor-ambient-temperature",
+     "channelType": "temperature",
+     "name": "Indoor Weighted Temperature",
+     "displayName": "Indoor Weighted Temperature",
+     "unit": "°C",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 60,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 15,
+      "max": 40
+     },
+     "warningThreshold": 27,
+     "criticalThreshold": 29,
+     "thresholdSource": "NBC 2016 Adaptive Thermal Comfort Standard (Class B)",
+     "thresholdClassification": "Project-defined operational target",
+     "evidenceClassification": "Measured",
+     "alertThresholds": {
+      "alarmMax": 29,
+      "normalMax": 26,
+      "hysteresis": 1,
+      "ruleDescription": "Indoor temperature above NBC adaptive thermal comfort envelope.",
+      "suggestedAction": "Engage earth-air heat exchanger and lower external louvers.",
+      "thresholdClassification": "Project-defined operational target"
+     }
+    },
+    {
+     "id": "indoor-relative-humidity",
+     "channelId": "indoor-relative-humidity",
+     "channelType": "humidity",
+     "name": "Indoor Relative Humidity",
+     "displayName": "Indoor Relative Humidity",
+     "unit": "%",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 60,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 10,
+      "max": 90
+     },
+     "thresholdSource": "ASHRAE Standard 55 Comfort Criteria",
+     "thresholdClassification": "Project-defined operational target",
+     "evidenceClassification": "Measured"
+    }
+   ]
+  }
+ },
+ {
+  "key": "COMPUTE_RACK_SERVER",
+  "template": {
+   "templateId": "compute-rack-server",
+   "name": "Compute Commons High-Density AI Cluster Node",
+   "domain": "Compute",
+   "type": "Compute Cluster Node",
+   "subtype": "Direct-to-Chip Liquid Cooled Server",
+   "description": "High-density GPU inference rack with batch job queue scheduling.",
+   "defaultCapacity": 28,
+   "capacityUnit": "kW",
+   "operatingRange": {
+    "min": 5,
+    "max": 32,
+    "unit": "kW"
+   },
+   "specifications": {
+    "gpuCount": 8,
+    "acceleratorType": "NVIDIA H200 / Equivalent High-Density Tensor",
+    "targetPUE": "1.18",
+    "targetWUE": "0.15 L/kWh"
+   },
+   "channels": [
+    {
+     "id": "it-draw-power",
+     "channelId": "it-draw-power",
+     "channelType": "power",
+     "name": "IT Component Electrical Power",
+     "displayName": "IT Component Electrical Power",
+     "unit": "kW",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 10,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 0,
+      "max": 35
+     },
+     "warningThreshold": 28,
+     "criticalThreshold": 32,
+     "thresholdSource": "Rack PDU Continuous Circuit Breaker Rating",
+     "thresholdClassification": "Manufacturer-specified",
+     "evidenceClassification": "Measured",
+     "alertThresholds": {
+      "normalMax": 28,
+      "alarmMax": 32,
+      "hysteresis": 1,
+      "ruleDescription": "IT load drawing near PDU 32A breaker trip threshold.",
+      "suggestedAction": "Pause lowest priority background token training queue.",
+      "thresholdClassification": "Manufacturer-specified"
+     }
+    },
+    {
+     "id": "gpu-temperature-max",
+     "channelId": "gpu-temperature-max",
+     "channelType": "temperature",
+     "name": "Peak GPU Die Temperature",
+     "displayName": "Peak GPU Die Temperature",
+     "unit": "°C",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 5,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 20,
+      "max": 105
+     },
+     "warningThreshold": 80,
+     "criticalThreshold": 88,
+     "thresholdSource": "Semiconductor Thermal Throttling Juncture (Vendor Spec)",
+     "thresholdClassification": "Manufacturer-specified",
+     "evidenceClassification": "Measured",
+     "alertThresholds": {
+      "alarmMax": 88,
+      "normalMax": 78,
+      "hysteresis": 3,
+      "ruleDescription": "GPU silicon temperature entering hardware thermal throttle zone.",
+      "suggestedAction": "Verify coolant loop supply temperature and pump pressure.",
+      "thresholdClassification": "Manufacturer-specified"
+     }
+    },
+    {
+     "id": "rack-pue",
+     "channelId": "rack-pue",
+     "channelType": "efficiency",
+     "name": "Instantaneous Power Usage Effectiveness",
+     "displayName": "Instantaneous Power Usage Effectiveness (PUE)",
+     "unit": "dimensionless",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 60,
+     "source": "simulation",
+     "validRange": {
+      "min": 1.05,
+      "max": 2
+     },
+     "warningThreshold": 1.35,
+     "criticalThreshold": 1.5,
+     "thresholdSource": "Dhun Field Station Compute Efficiency Covenant",
+     "thresholdClassification": "Project-defined operational target",
+     "evidenceClassification": "Calculated"
+    }
+   ]
+  }
+ },
+ {
+  "key": "ENVIRONMENTAL_ECOLOGY",
+  "template": {
+   "templateId": "environmental-ecology",
+   "name": "Bioreserve Micrometeorological & Hydrogeology Station",
+   "domain": "Ecology",
+   "type": "Environmental Sensor Station",
+   "subtype": "Solar-Powered Autonomous Weather & Soil Station",
+   "description": "Ground environmental telemetry monitoring microclimate, groundwater depth, and soil moisture in the bioreserve.",
+   "defaultCapacity": 400,
+   "capacityUnit": "acres",
+   "operatingRange": {
+    "min": 0,
+    "max": 500,
+    "unit": "acres"
+   },
+   "specifications": {
+    "powerSource": "30W Solar Panel + 12V LiFePO4 Battery",
+    "telemetryLink": "LoRaWAN to Campus Central Gateway (865 MHz India Band)"
+   },
+   "channels": [
+    {
+     "id": "ambient-temperature",
+     "channelId": "ambient-temperature",
+     "channelType": "temperature",
+     "name": "Outdoor Ambient Temperature",
+     "displayName": "Outdoor Ambient Temperature",
+     "unit": "°C",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 60,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": -5,
+      "max": 55
+     },
+     "thresholdClassification": "Provisional test threshold",
+     "evidenceClassification": "Measured"
+    },
+    {
+     "id": "soil-volumetric-moisture",
+     "channelId": "soil-volumetric-moisture",
+     "channelType": "percentage",
+     "name": "Root-Zone Soil Volumetric Water Content",
+     "displayName": "Root-Zone Soil Volumetric Water Content",
+     "unit": "%",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 300,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 0,
+      "max": 100
+     },
+     "warningThreshold": 12,
+     "criticalThreshold": 8,
+     "thresholdSource": "Arid Zone Native Species Permanent Wilting Point (CAZRI 2018)",
+     "thresholdClassification": "Engineering-design limit",
+     "evidenceClassification": "Measured",
+     "alertThresholds": {
+      "alarmMin": 8,
+      "normalMin": 14,
+      "hysteresis": 2,
+      "ruleDescription": "Soil moisture dropped below native root permanent wilting point.",
+      "suggestedAction": "Trigger pulsed drip irrigation cycle with treated effluent.",
+      "thresholdClassification": "Engineering-design limit"
+     }
+    },
+    {
+     "id": "groundwater-depth-datum",
+     "channelId": "groundwater-depth-datum",
+     "channelType": "length",
+     "name": "Piezometer Groundwater Depth from Ground Level",
+     "displayName": "Piezometer Groundwater Depth from Ground Level",
+     "unit": "m",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 3600,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 5,
+      "max": 120
+     },
+     "warningThreshold": 45,
+     "criticalThreshold": 55,
+     "thresholdSource": "Central Ground Water Board (CGWB) Over-Exploited Basin Limit",
+     "thresholdClassification": "Regulatory requirement",
+     "evidenceClassification": "Measured",
+     "alertThresholds": {
+      "alarmMax": 55,
+      "normalMax": 42,
+      "hysteresis": 1,
+      "isRegulatory": true,
+      "ruleDescription": "Groundwater water table has dropped past CGWB alert threshold.",
+      "suggestedAction": "Halt deep aquifer pumping and transition 100% to harvested lake storage.",
+      "thresholdClassification": "Regulatory requirement"
+     }
+    },
+    {
+     "id": "daily-rainfall",
+     "channelId": "daily-rainfall",
+     "channelType": "length",
+     "name": "Tipping Bucket Rainfall Accumulation",
+     "displayName": "Tipping Bucket Rainfall Accumulation",
+     "unit": "mm",
+     "dataType": "numeric",
+     "expectedSamplingIntervalSeconds": 60,
+     "source": "physical_sensor",
+     "validRange": {
+      "min": 0,
+      "max": 300
+     },
+     "thresholdClassification": "Provisional test threshold",
+     "evidenceClassification": "Measured"
+    }
+   ]
+  }
+ }
+]

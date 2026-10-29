@@ -1,0 +1,28 @@
+{
+ "COMPUTE_LOAD_KW": {
+  "none": 0,
+  "workstation": 1.2,
+  "server": 10,
+  "flagship": 28
+ },
+ "COMPUTE_LABEL": {
+  "none": "No compute",
+  "workstation": "Workstation · 1.2 kW",
+  "server": "8-GPU node · 10 kW",
+  "flagship": "8× H200 · 28 kW"
+ },
+ "COOLING_PROFILE": {
+  "dry": {
+   "pue": 1.38,
+   "wue": 0.15
+  },
+  "evaporative": {
+   "pue": 1.18,
+   "wue": 1.8
+  }
+ },
+ "COOLING_LABEL": {
+  "dry": "Dry coolers",
+  "evaporative": "Evaporative"
+ }
+}

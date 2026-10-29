@@ -1,0 +1,214 @@
+[
+ {
+  "id": "param-grid-ef-rajasthan",
+  "name": "Rajasthan Grid Emission Factor",
+  "description": "Marginal grid carbon intensity for Northern Regional Grid (Rajasthan state bus).",
+  "value": 0.82,
+  "unit": "kg CO₂e/kWh",
+  "source": "Central Electricity Authority (CEA) CO₂ Baseline Database Version 19",
+  "sourceDate": "2024-03-31",
+  "evidenceClassification": "Reported",
+  "derivationMethod": "Weighted average operating margin of thermal power stations connected to Northern Grid.",
+  "applicableWorkspaces": [
+   "Ledger",
+   "DigitalTwin",
+   "Compute",
+   "Scenarios"
+  ],
+  "applicableAssetTypes": [
+   "GridSubstation",
+   "Meter",
+   "ComputeRack"
+  ],
+  "uncertaintyNotes": "Official CEA regulatory factor; does not account for intraday diurnal solar displacement.",
+  "lastVerifiedAt": "2024-10-15",
+  "verifiedBy": "CEA / Dhun Energy Team",
+  "thresholdClassification": "Regulatory requirement"
+ },
+ {
+  "id": "param-solar-specific-yield",
+  "name": "Jaipur Solar Specific Yield",
+  "description": "Annual energy yield per installed kWp for south-facing mono-PERC arrays (tilt 26°).",
+  "value": 1650,
+  "unit": "kWh/kWp/year",
+  "source": "NREL PVWatts & Rajasthan Renewable Energy Corporation Ltd (RREC)",
+  "sourceDate": "2024-01-15",
+  "evidenceClassification": "Calculated",
+  "derivationMethod": "Hourly irradiance modeling adjusted for 3.2% Jaipur regional soiling degradation.",
+  "applicableWorkspaces": [
+   "Campus",
+   "DigitalTwin",
+   "Scenarios"
+  ],
+  "applicableAssetTypes": [
+   "SolarArray",
+   "Inverter"
+  ],
+  "uncertaintyNotes": "Subject to monsoon cloud cover and seasonal dust storm cleaning schedules (±4.5% variance).",
+  "lastVerifiedAt": "2024-09-01",
+  "verifiedBy": "Solar Design Engineer",
+  "thresholdClassification": "Engineering-design limit"
+ },
+ {
+  "id": "param-bess-efficiency-ac",
+  "name": "BESS Round-Trip AC Efficiency",
+  "description": "Full-cycle AC-to-AC round-trip efficiency for Lithium Iron Phosphate (LFP) containerized system.",
+  "value": 88,
+  "unit": "%",
+  "source": "Manufacturer Factory Acceptance Test (FAT) & Spec Sheet",
+  "sourceDate": "2024-04-10",
+  "evidenceClassification": "Reported",
+  "derivationMethod": "Metered bidirectional AC test including inverter losses, auxiliary cooling, and BMS overhead.",
+  "applicableWorkspaces": [
+   "Campus",
+   "DigitalTwin",
+   "Scenarios"
+  ],
+  "applicableAssetTypes": [
+   "BatteryBESS",
+   "Inverter"
+  ],
+  "uncertaintyNotes": "Efficiency degrades to ~84% during peak summer when ambient temperatures exceed 44°C.",
+  "lastVerifiedAt": "2024-08-20",
+  "verifiedBy": "BESS Commissioning Lead",
+  "thresholdClassification": "Manufacturer-specified"
+ },
+ {
+  "id": "param-water-catchment-envelope",
+  "name": "500-Acre Campus Rainwater Harvesting Envelope",
+  "description": "Theoretical annual rainwater harvesting volume potential over the 500-acre Dhun watershed.",
+  "value": 550000,
+  "unit": "kL/year",
+  "source": "Dhun Hydrology & Watershed Masterplan (550 mm annual rainfall × 500 acres × runoff coeff)",
+  "sourceDate": "2023-11-20",
+  "evidenceClassification": "Calculated",
+  "derivationMethod": "Catchment runoff model across contour swales, lakes, and recharge basins. (Note: NOT active structural tank storage).",
+  "applicableWorkspaces": [
+   "Campus",
+   "DigitalTwin",
+   "Scenarios"
+  ],
+  "applicableAssetTypes": [
+   "WaterHarvesting",
+   "RetentionPond"
+  ],
+  "uncertaintyNotes": "Subject to erratic interannual monsoon rainfall distributions (historic range: 380 mm to 720 mm).",
+  "lastVerifiedAt": "2024-06-12",
+  "verifiedBy": "Chief Hydrologist",
+  "thresholdClassification": "Project-defined operational target"
+ },
+ {
+  "id": "param-water-per-capita-demand",
+  "name": "Potable Domestic Water Demand Baseline",
+  "description": "Design water allowance per resident for rural/semi-arid field station campuses.",
+  "value": 135,
+  "unit": "L/person/day",
+  "source": "CPHEEO Manual on Water Supply and Treatment, Ministry of Housing & Urban Affairs",
+  "sourceDate": "2022-05-10",
+  "evidenceClassification": "Reported",
+  "derivationMethod": "Standard Indian engineering benchmark for residential communities with full flushing sewerage.",
+  "applicableWorkspaces": [
+   "Campus",
+   "Scenarios"
+  ],
+  "applicableAssetTypes": [
+   "WaterMeter",
+   "ResidenceBlock"
+  ],
+  "uncertaintyNotes": "Actual field station consumption ranges from 90 to 125 L/person/day under water conservation fixtures.",
+  "lastVerifiedAt": "2024-07-04",
+  "verifiedBy": "Public Health Engineer",
+  "thresholdClassification": "Regulatory requirement"
+ },
+ {
+  "id": "param-standing-soil-carbon-stock",
+  "name": "Campus Soil Organic Carbon Stock Baseline",
+  "description": "Total standing soil carbon pool across 500-acre regenerated agroforestry landscape (0-30cm).",
+  "value": 45000,
+  "unit": "tCO₂e",
+  "source": "Field Station Baseline Soil Core Sampling & Laboratory Analysis",
+  "sourceDate": "2024-02-28",
+  "evidenceClassification": "Measured",
+  "derivationMethod": "Dry combustion elemental analyzer on 120 composite core samples across 8 site parcels.",
+  "applicableWorkspaces": [
+   "Campus",
+   "Ledger"
+  ],
+  "applicableAssetTypes": [
+   "EcologySensor",
+   "AgroforestryParcel"
+  ],
+  "uncertaintyNotes": "Sampling error ±6.8%. Strictly standing capital stock — NEVER to be counted as annual removal.",
+  "lastVerifiedAt": "2024-05-18",
+  "verifiedBy": "ICAR Accredited Soil Lab",
+  "thresholdClassification": "Project-defined operational target"
+ },
+ {
+  "id": "param-annual-biomass-sequestration",
+  "name": "Agroforestry Annual Carbon Removal Rate",
+  "description": "Annual biological net carbon removal flux into above-ground woody biomass and root systems.",
+  "value": 1800,
+  "unit": "tCO₂e/year",
+  "source": "Allometric Growth Curves for Indigenous Rajasthan Flora (Khejri, Neem, Rohida)",
+  "sourceDate": "2023-12-10",
+  "evidenceClassification": "Calculated",
+  "derivationMethod": "DBH (diameter at breast height) increment measurements combined with species allometric equations.",
+  "applicableWorkspaces": [
+   "Campus",
+   "Ledger",
+   "Scenarios"
+  ],
+  "applicableAssetTypes": [
+   "EcologySensor",
+   "TreeInventory"
+  ],
+  "uncertaintyNotes": "Calculated flux; depends on sapling survival rates and summer irrigation availability.",
+  "lastVerifiedAt": "2024-08-30",
+  "verifiedBy": "Forestry Carbon Auditor",
+  "thresholdClassification": "Project-defined operational target"
+ },
+ {
+  "id": "param-compute-pue-design",
+  "name": "Compute Commons Design PUE",
+  "description": "Power Usage Effectiveness design ceiling for containerized AI compute cluster with direct liquid cooling.",
+  "value": 1.18,
+  "unit": "ratio (dimensionless)",
+  "source": "Compute Commons Technical Design Specification Rev 2.1",
+  "sourceDate": "2024-03-12",
+  "evidenceClassification": "Calculated",
+  "derivationMethod": "Total Facility Power (IT + Direct Warm Water Loop + Secondary Chiller) divided by IT Power.",
+  "applicableWorkspaces": [
+   "Compute",
+   "Scenarios"
+  ],
+  "applicableAssetTypes": [
+   "ComputeCluster",
+   "CoolingLoop"
+  ],
+  "uncertaintyNotes": "PUE rises to ~1.28 during extreme summer heatwaves (>45°C ambient) when dry coolers require adiabatic boost.",
+  "lastVerifiedAt": "2024-09-15",
+  "verifiedBy": "Datacenter Architect",
+  "thresholdClassification": "Engineering-design limit"
+ },
+ {
+  "id": "param-bess-max-operating-temp",
+  "name": "BESS Cell Critical Thermal Alarm",
+  "description": "Maximum allowable cell surface temperature before emergency BMS shutdown.",
+  "value": 55,
+  "unit": "°C",
+  "source": "UL 9540A Standard for Thermal Runaway Evaluation & Cell Manufacturer Manual",
+  "sourceDate": "2023-08-01",
+  "evidenceClassification": "Reported",
+  "derivationMethod": "Electrochemical thermal stability threshold for lithium iron phosphate cells.",
+  "applicableWorkspaces": [
+   "DigitalTwin"
+  ],
+  "applicableAssetTypes": [
+   "BatteryBESS"
+  ],
+  "uncertaintyNotes": "Mandatory safety limit. Warning alert fires at 45.0°C; critical trip at 55.0°C.",
+  "lastVerifiedAt": "2024-07-22",
+  "verifiedBy": "Safety Compliance Lead",
+  "thresholdClassification": "Manufacturer-specified"
+ }
+]

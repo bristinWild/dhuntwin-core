@@ -1,0 +1,183 @@
+{
+ "COMPUTE_DEFAULT_SCENARIOS": {
+  "pilot": {
+   "id": "pilot",
+   "name": "Compute Pilot",
+   "description": "Initial experimental deployment for edge telemetry, low-power inference, and campus model testing.",
+   "inputMode": "averageLoad",
+   "averageItLoadKw": 5,
+   "operatingHoursPerDay": 12,
+   "operatingDaysPerYear": 365,
+   "pue": 1.3,
+   "electricityRateInrPerKwh": 10,
+   "isBaseline": true,
+   "notes": "Illustrative planning configuration: 12h/day daytime operation aligned with campus solar window."
+  },
+  "phase1": {
+   "id": "phase1",
+   "name": "Phase 1 Reference",
+   "description": "Continuous operational cluster serving campus analytics, environmental inference, and local field research.",
+   "inputMode": "averageLoad",
+   "averageItLoadKw": 20,
+   "operatingHoursPerDay": 24,
+   "operatingDaysPerYear": 365,
+   "pue": 1.3,
+   "electricityRateInrPerKwh": 10,
+   "isBaseline": false,
+   "notes": "Continuous 24h operational load; requires night grid import or dedicated battery storage."
+  },
+  "expansion": {
+   "id": "expansion",
+   "name": "Expansion Scenario",
+   "description": "Scale-out multi-tenant infrastructure supporting advanced regional training, agent swarms, and synthetic generation.",
+   "inputMode": "averageLoad",
+   "averageItLoadKw": 50,
+   "operatingHoursPerDay": 24,
+   "operatingDaysPerYear": 365,
+   "pue": 1.3,
+   "electricityRateInrPerKwh": 10,
+   "isBaseline": false,
+   "notes": "High-density scale-out configuration; represents upper planning ceiling for Phase 1 electrical allocation."
+  },
+  "custom": {
+   "id": "custom",
+   "name": "Custom Scenario",
+   "description": "User-defined compute scenario for exploring custom IT loads, duty cycles, or cooling efficiencies.",
+   "inputMode": "averageLoad",
+   "averageItLoadKw": 15,
+   "ratedItCapacityKw": 20,
+   "averageUtilisationPct": 75,
+   "operatingHoursPerDay": 18,
+   "operatingDaysPerYear": 365,
+   "pue": 1.25,
+   "electricityRateInrPerKwh": 10,
+   "isBaseline": false,
+   "notes": "User-configured interactive scenario parameters."
+  }
+ },
+ "CAMPUS_ENERGY_DEFAULTS": {
+  "existingCampusMwhYr": 300,
+  "existingCampusCostLakhYr": 30,
+  "existingCampusDerivation": "Derived from ₹2.5 lakh/month billing at assumed ₹10/kWh rate (pending meter audit).",
+  "plannedBuildingsMwhYr": 524,
+  "plannedBuildingsStatus": "Unvalidated architectural placeholder; subject to building physics simulation."
+ },
+ "DEFAULT_WORKLOAD_PROFILES": [
+  {
+   "id": "wl-infer-local",
+   "name": "Edge Model Inference (7B–8B)",
+   "category": "Local Model Inference",
+   "targetModel": "Llama-3.1 8B / Mistral 7B",
+   "parameterSize": "8 Billion",
+   "quantization": "INT4",
+   "minVramGb": 8,
+   "concurrentCapacity": "10–25 streams per accelerator",
+   "isShiftableToSolarHours": false,
+   "description": "Low-latency resident queries, environmental event parsing, and campus concierge responses."
+  },
+  {
+   "id": "wl-rag-campus",
+   "name": "Campus Embeddings & RAG",
+   "category": "Embeddings & RAG",
+   "targetModel": "BGE-Large / Cohere Embed v3",
+   "parameterSize": "330 Million",
+   "quantization": "FP16",
+   "minVramGb": 4,
+   "concurrentCapacity": "100+ documents/sec",
+   "isShiftableToSolarHours": true,
+   "description": "Indexing environmental sensors, water logs, solar telemetry, and architectural documents into vector stores."
+  },
+  {
+   "id": "wl-heavy-infer",
+   "name": "Large Model Reasoning (70B)",
+   "category": "Local Model Inference",
+   "targetModel": "Llama-3.1 70B / Qwen 2.5 72B",
+   "parameterSize": "70 Billion",
+   "quantization": "INT8",
+   "minVramGb": 80,
+   "concurrentCapacity": "2–4 concurrent users per node",
+   "isShiftableToSolarHours": false,
+   "description": "Complex spatial synthesis, ecological scenario reasoning, and engineering report generation."
+  },
+  {
+   "id": "wl-lora-tuning",
+   "name": "Domain LoRA Fine-Tuning",
+   "category": "Fine-Tuning (LoRA/PEFT)",
+   "targetModel": "Llama-3.1 8B / 70B LoRA",
+   "parameterSize": "8B–70B",
+   "quantization": "INT4",
+   "minVramGb": 24,
+   "concurrentCapacity": "Batch job queue",
+   "isShiftableToSolarHours": true,
+   "description": "Overnight training on Dhun microclimate sensors, desert afforestation, and water table records."
+  },
+  {
+   "id": "wl-batch-media",
+   "name": "Acoustic & Vision Transcoding",
+   "category": "Batch & Transcoding",
+   "targetModel": "Whisper Large v3 / YOLOv10",
+   "parameterSize": "1.5 Billion",
+   "quantization": "FP16",
+   "minVramGb": 16,
+   "concurrentCapacity": "20× real-time audio batching",
+   "isShiftableToSolarHours": true,
+   "description": "Bioacoustic avian bird call classification and wildlife camera-trap biodiversity monitoring."
+  }
+ ],
+ "COMPUTE_EVIDENCE_REGISTER": [
+  {
+   "id": "asm-1",
+   "parameter": "Existing Campus Electricity Bill",
+   "value": "₹2.5 Lakh / month (300 MWh / year)",
+   "unit": "INR / month & MWh / yr",
+   "sourceJustification": "Reported historical Dhun campus power bill. Yields 300,000 kWh/yr at assumed ₹10/kWh rate.",
+   "verificationStatus": "Reported",
+   "lastReviewed": "2024-10-15"
+  },
+  {
+   "id": "asm-2",
+   "parameter": "Effective Electricity Tariff",
+   "value": "₹10.00",
+   "unit": "₹ / kWh",
+   "sourceJustification": "Working planning tariff assumption; pending JVVNL industrial tariff schedule audit.",
+   "verificationStatus": "Planning Assumption",
+   "lastReviewed": "2024-10-15"
+  },
+  {
+   "id": "asm-3",
+   "parameter": "Power Usage Effectiveness (PUE)",
+   "value": "1.30",
+   "unit": "Facility Energy Ratio",
+   "sourceJustification": "Provisional planning assumption for dry/hybrid cooling with Rajasthan ambient dry-bulb consideration.",
+   "verificationStatus": "Planning Assumption",
+   "lastReviewed": "2024-10-15"
+  },
+  {
+   "id": "asm-4",
+   "parameter": "Compute Planning Scenarios (5 / 20 / 50 kW)",
+   "value": "5 kW (Pilot) · 20 kW (Phase 1) · 50 kW (Expansion)",
+   "unit": "kW average IT load",
+   "sourceJustification": "Illustrative engineering sizing envelopes for progressive compute infrastructure stages.",
+   "verificationStatus": "Planning Assumption",
+   "lastReviewed": "2024-10-15"
+  },
+  {
+   "id": "asm-5",
+   "parameter": "Planned Phase 1 Buildings Allowance",
+   "value": "524.0",
+   "unit": "MWh / year",
+   "sourceJustification": "Unvalidated placeholder derived from initial architectural built-up area; pending physics simulation.",
+   "verificationStatus": "Unvalidated Placeholder",
+   "lastReviewed": "2024-10-15"
+  },
+  {
+   "id": "asm-6",
+   "parameter": "Hardware Specifications & AI Throughput",
+   "value": "Unspecified (Generic Power Envelopes)",
+   "unit": "GPU count / TFLOPS / tokens/sec",
+   "sourceJustification": "Hardware procurement pending; compute performance shown as 'Not yet specified' until BOM is locked.",
+   "verificationStatus": "Unspecified",
+   "lastReviewed": "2024-10-15"
+  }
+ ]
+}

@@ -1,0 +1,148 @@
+[
+ {
+  "id": "bill-vastu-farms-2022-02",
+  "propertyId": "prop-vastu-farms",
+  "propertyName": "Vastu Farms Pvt. Ltd.",
+  "consumerAccount": "05910044",
+  "connectionIdentifier": "210532029844",
+  "utilityProvider": "Jaipur Vidyut Vitran Nigam Limited (JVVNL)",
+  "billingPeriod": {
+   "month": 2,
+   "year": 2022,
+   "label": "February 2022"
+  },
+  "connectedLoadKw": 30,
+  "recordedBillingDemandKw": 22.5,
+  "consumptionKwh": 1490.4,
+  "powerFactor": 0.923,
+  "currentBillAmount": 21203.49,
+  "previousArrears": 0,
+  "totalAmountPayable": 21203.49,
+  "effectiveRatePerKwh": 14.226710950080516,
+  "meterReadings": {
+   "currentReadingKwh": 42610,
+   "previousReadingKwh": 42113.2,
+   "differenceKwh": 496.8,
+   "printedConsumptionKwh": 1490.4,
+   "inferredMultiplier": 3,
+   "readingDiscrepancyKwh": 0,
+   "readingMatchesPrinted": true,
+   "notes": "Meter difference is 496.8 kWh vs 1,490.4 kWh printed consumption. Inferred 3.0x CT meter multiplier yields exact match."
+  },
+  "financialReconciliation": {
+   "currentBillAmount": 21203.49,
+   "previousArrears": 0,
+   "reportedTotalPayable": 21203.49,
+   "arithmeticSum": 21203.49,
+   "unreconciledDifference": 0,
+   "isReconciled": true,
+   "auditNotes": "Zero arrears. Current bill equals total payable."
+  },
+  "sourceType": "BILL_RECORDED",
+  "verificationStatus": "VERIFIED",
+  "sourceDocument": "JVVNL Utility Invoice (Feb 2022) — Vastu Farms Pvt. Ltd.",
+  "lastReviewed": "2026-10-29",
+  "flags": [
+   "CT_MULTIPLIER_3X",
+   "COMPARABLE_REFERENCE_ONLY"
+  ]
+ },
+ {
+  "id": "bill-vastu-resorts-2022-02",
+  "propertyId": "prop-vastu-resorts",
+  "propertyName": "Vastu Resorts Pvt. Ltd.",
+  "consumerAccount": "05910051",
+  "connectionIdentifier": "210532020051",
+  "utilityProvider": "Jaipur Vidyut Vitran Nigam Limited (JVVNL)",
+  "billingPeriod": {
+   "month": 2,
+   "year": 2022,
+   "label": "February 2022"
+  },
+  "connectedLoadKw": 60,
+  "recordedBillingDemandKw": 45,
+  "consumptionKwh": 4949.1,
+  "powerFactor": 0.88,
+  "currentBillAmount": 61638.88,
+  "previousArrears": 71919.43,
+  "totalAmountPayable": 136096,
+  "effectiveRatePerKwh": 12.454563455981894,
+  "meterReadings": {
+   "currentReadingKwh": 106524.5,
+   "previousReadingKwh": 101574.8,
+   "differenceKwh": 4949.7,
+   "printedConsumptionKwh": 4949.1,
+   "inferredMultiplier": 1,
+   "readingDiscrepancyKwh": 0.6,
+   "readingMatchesPrinted": false,
+   "notes": "Meter difference of 4,949.7 kWh exceeds printed consumption of 4,949.1 kWh by 0.6 kWh. Flagged for review."
+  },
+  "financialReconciliation": {
+   "currentBillAmount": 61638.88,
+   "previousArrears": 71919.43,
+   "reportedTotalPayable": 136096,
+   "arithmeticSum": 133558.31,
+   "unreconciledDifference": 2537.69,
+   "isReconciled": false,
+   "auditNotes": "Unreconciled discrepancy of ₹2,537.69 between arithmetic sum (₹1,33,558.31) and printed total payable (₹1,36,096.00). Indicates unitemized late payment surcharge (LPC) or fuel surcharge adjustment. Do not force balance."
+  },
+  "sourceType": "BILL_RECORDED",
+  "verificationStatus": "DISCREPANCY_FLAGGED",
+  "sourceDocument": "JVVNL Utility Invoice (Feb 2022) — Vastu Resorts Pvt. Ltd.",
+  "lastReviewed": "2026-10-29",
+  "flags": [
+   "ARREARS_PRESENT",
+   "FINANCIAL_DISCREPANCY",
+   "METER_DELTA_DISCREPANCY",
+   "LOW_POWER_FACTOR"
+  ]
+ },
+ {
+  "id": "bill-vastu-abode-2022-02",
+  "propertyId": "prop-vastu-abode",
+  "propertyName": "Vastu Abode Pvt. Ltd.",
+  "consumerAccount": "05910033",
+  "connectionIdentifier": "210532023252",
+  "utilityProvider": "Jaipur Vidyut Vitran Nigam Limited (JVVNL)",
+  "billingPeriod": {
+   "month": 2,
+   "year": 2022,
+   "label": "February 2022"
+  },
+  "connectedLoadKw": 100,
+  "recordedBillingDemandKw": 56.25,
+  "consumptionKwh": 4692.63,
+  "powerFactor": 0.955,
+  "currentBillAmount": 60116.41,
+  "previousArrears": 0,
+  "totalAmountPayable": 60116.41,
+  "effectiveRatePerKwh": 12.810813978515247,
+  "meterReadings": {
+   "currentReadingKwh": 103946.5,
+   "previousReadingKwh": 99253.87,
+   "differenceKwh": 4692.63,
+   "printedConsumptionKwh": 4692.63,
+   "inferredMultiplier": 1,
+   "readingDiscrepancyKwh": 0,
+   "readingMatchesPrinted": true,
+   "notes": "Meter difference of 4,692.63 kWh matches printed billing consumption exactly."
+  },
+  "financialReconciliation": {
+   "currentBillAmount": 60116.41,
+   "previousArrears": 0,
+   "reportedTotalPayable": 60116.41,
+   "arithmeticSum": 60116.41,
+   "unreconciledDifference": 0,
+   "isReconciled": true,
+   "auditNotes": "Zero arrears. Current bill equals total payable."
+  },
+  "sourceType": "BILL_RECORDED",
+  "verificationStatus": "VERIFIED",
+  "sourceDocument": "JVVNL Utility Invoice (Feb 2022) — Vastu Abode Pvt. Ltd.",
+  "lastReviewed": "2026-10-29",
+  "flags": [
+   "VERIFIED_ACCURATE",
+   "HIGH_POWER_FACTOR"
+  ]
+ }
+]

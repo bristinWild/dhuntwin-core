@@ -1,0 +1,881 @@
+[
+ {
+  "id": "grid-hub",
+  "name": "Campus Substation & Grid Interconnect",
+  "type": "Substation & HT Incomer",
+  "subtype": "11 kV / 415 V Package Substation",
+  "domain": "Energy",
+  "description": "Main utility grid incomer with bidirectional four-quadrant energy metering and power quality monitoring.",
+  "purpose": "Primary utility interconnection and backup power import/export",
+  "systemRelationship": "Feeds Central Campus MV Ring and BESS interface",
+  "location": {
+   "parcelId": "p5",
+   "parcelName": "Infrastructure & Energy Spine",
+   "coordinates": {
+    "lat": 26.71765,
+    "lng": 75.594432
+   },
+   "mapPosition": {
+    "x": 400,
+    "y": 310
+   },
+   "hasVerifiedCoordinates": true
+  },
+  "commissioningStatus": "Active",
+  "installationDate": "2024-03-15",
+  "ratedCapacity": 1250,
+  "capacityUnit": "kVA",
+  "electricalRating": "11 kV / 415 V, 3-phase, 50 Hz",
+  "operatingRange": {
+   "min": 0,
+   "max": 800,
+   "optimalMin": 50,
+   "optimalMax": 450,
+   "unit": "kW"
+  },
+  "limits": {
+   "minLimit": 0,
+   "maxLimit": 1000
+  },
+  "manufacturer": "Schneider Electric",
+  "model": "Trihal 1250kVA Dry Type",
+  "serialNumber": "SN-SCH-2024-8812",
+  "maintenanceIntervalDays": 180,
+  "lastMaintenanceDate": "2026-06-10",
+  "evidenceClassification": "Measured",
+  "sourceDocument": "Dhun Grid Interconnection Agreement & SLD Rev 4",
+  "sourceDate": "2024-02-18",
+  "responsibleOrg": "Logos Field Operations & JVVNL",
+  "verificationStatus": "verified",
+  "uncertaintyNotes": "Meter calibrated to IEC 62053-22 Class 0.2S standard.",
+  "carbonAccounting": {
+   "emissionFactor": 0.82,
+   "calculationMethod": "CEA CO2 Baseline Database for the Indian Power Sector v19",
+   "includedInCampusMeter": true,
+   "eligibleForLedger": true
+  },
+  "channels": [
+   {
+    "id": "grid-import-kw",
+    "name": "Grid Import Active Power",
+    "unit": "kW",
+    "dataType": "numeric",
+    "expectedSamplingIntervalSeconds": 2,
+    "source": "gateway",
+    "alertThresholds": {
+     "normalMin": 0,
+     "normalMax": 450,
+     "alarmMin": 0,
+     "alarmMax": 750,
+     "hysteresis": 15,
+     "persistenceSeconds": 10,
+     "ruleDescription": "Grid import exceeds sanctioned contract demand limit",
+     "suggestedAction": "Throttle deferrable compute batch jobs or dispatch BESS storage",
+     "thresholdSource": "JVVNL Sanctioned Load Agreement (750 kW contract demand)"
+    }
+   },
+   {
+    "id": "grid-frequency",
+    "name": "Grid Frequency",
+    "unit": "Hz",
+    "dataType": "numeric",
+    "expectedSamplingIntervalSeconds": 2,
+    "source": "gateway",
+    "alertThresholds": {
+     "normalMin": 49.85,
+     "normalMax": 50.15,
+     "alarmMin": 49.5,
+     "alarmMax": 50.5,
+     "hysteresis": 0.05,
+     "persistenceSeconds": 4,
+     "ruleDescription": "Indian Electricity Grid Code (IEGC) operational band excursion",
+     "suggestedAction": "Prepare sensitive laboratory equipment for islanding if frequency continues degrading",
+     "thresholdSource": "CERC IEGC 2023 Grid Regulations"
+    }
+   }
+  ],
+  "primaryChannelId": "grid-import-kw"
+ },
+ {
+  "id": "solar-central",
+  "name": "Central Solar PV Array",
+  "type": "Solar Photovoltaic",
+  "subtype": "Ground-Mounted Bifacial Mono-PERC",
+  "domain": "Energy",
+  "description": "Main campus solar farm generating renewable electricity with string inverter string monitoring.",
+  "purpose": "Primary zero-carbon electricity generation",
+  "systemRelationship": "Feeds Central 415V Busbar with export limiter",
+  "location": {
+   "parcelId": "p5",
+   "parcelName": "Infrastructure & Energy Spine",
+   "coordinates": {
+    "lat": 26.7158,
+    "lng": 75.5962
+   },
+   "mapPosition": {
+    "x": 400,
+    "y": 220
+   },
+   "hasVerifiedCoordinates": true
+  },
+  "commissioningStatus": "Active",
+  "installationDate": "2024-08-01",
+  "ratedCapacity": 850,
+  "capacityUnit": "kWp",
+  "electricalRating": "1000V DC String / 415V AC Inverter Output",
+  "operatingRange": {
+   "min": 0,
+   "max": 780,
+   "optimalMin": 200,
+   "optimalMax": 750,
+   "unit": "kW"
+  },
+  "limits": {
+   "minLimit": 0,
+   "maxLimit": 850
+  },
+  "manufacturer": "Waaree Energies & Sungrow",
+  "model": "Waaree Bi-550W / SG110CX Inverters",
+  "serialNumber": "SN-SGR-2024-00419",
+  "maintenanceIntervalDays": 30,
+  "lastMaintenanceDate": "2026-10-15",
+  "evidenceClassification": "Measured",
+  "sourceDocument": "EPC As-Built String Layout Drawing PV-002",
+  "sourceDate": "2024-09-01",
+  "responsibleOrg": "ZuGrama Energy Operations",
+  "verificationStatus": "verified",
+  "uncertaintyNotes": "Soiling derating factor 0.95 assumed between bi-weekly cleaning cycles.",
+  "carbonAccounting": {
+   "emissionFactor": 0,
+   "embodiedCarbonT": 382.5,
+   "calculationMethod": "Direct solar generation with 0 operational emissions; lifecycle LCA 45 gCO2e/kWh",
+   "includedInCampusMeter": true,
+   "eligibleForLedger": true
+  },
+  "channels": [
+   {
+    "id": "solar-gen-kw",
+    "name": "Active Solar Generation",
+    "unit": "kW",
+    "dataType": "numeric",
+    "expectedSamplingIntervalSeconds": 2,
+    "source": "gateway",
+    "alertThresholds": {
+     "normalMin": 0,
+     "normalMax": 800,
+     "alarmMin": 0,
+     "alarmMax": 850,
+     "ruleDescription": "Solar generation underperformance during peak irradiance",
+     "suggestedAction": "Inspect string combiner fuses and trigger robotic panel dry-cleaning",
+     "thresholdSource": "PVsyst Generation Envelope Assessment"
+    }
+   }
+  ],
+  "primaryChannelId": "solar-gen-kw"
+ },
+ {
+  "id": "bess-storage",
+  "name": "Campus BESS Battery Storage",
+  "type": "Battery Energy Storage",
+  "subtype": "Containerised LFP (Lithium Iron Phosphate)",
+  "domain": "Energy",
+  "description": "Central energy storage for solar self-consumption smoothing and critical campus backup.",
+  "purpose": "Solar shifting, peak shaving, and islanded resilience",
+  "location": {
+   "parcelId": "p5",
+   "parcelName": "Infrastructure & Energy Spine",
+   "coordinates": {
+    "lat": 26.7174,
+    "lng": 75.59465
+   },
+   "mapPosition": {
+    "x": 420,
+    "y": 330
+   },
+   "hasVerifiedCoordinates": true
+  },
+  "commissioningStatus": "Active",
+  "installationDate": "2025-01-20",
+  "ratedCapacity": 1200,
+  "capacityUnit": "kWh",
+  "electricalRating": "480V DC Bus / 300 kW Bi-directional Inverter",
+  "operatingRange": {
+   "min": 10,
+   "max": 95,
+   "optimalMin": 20,
+   "optimalMax": 90,
+   "unit": "% SoC"
+  },
+  "limits": {
+   "minLimit": 5,
+   "maxLimit": 98
+  },
+  "manufacturer": "CATL / Sinexcel",
+  "model": "EnerOne LFP 1.2MWh Outdoor System",
+  "serialNumber": "SN-CATL-BESS-0192",
+  "maintenanceIntervalDays": 90,
+  "lastMaintenanceDate": "2026-09-02",
+  "evidenceClassification": "Measured",
+  "sourceDocument": "BESS Commissioning & Safety Report Rev 2.1",
+  "sourceDate": "2025-01-28",
+  "responsibleOrg": "Logos Field Engineering",
+  "verificationStatus": "verified",
+  "channels": [
+   {
+    "id": "bess-soc",
+    "name": "State of Charge",
+    "unit": "%",
+    "dataType": "numeric",
+    "expectedSamplingIntervalSeconds": 2,
+    "source": "gateway",
+    "alertThresholds": {
+     "normalMin": 20,
+     "normalMax": 90,
+     "alarmMin": 10,
+     "alarmMax": 96,
+     "hysteresis": 2,
+     "ruleDescription": "Battery SoC approaching deep-discharge threshold",
+     "suggestedAction": "Inhibit non-critical discharge cycles and preserve emergency reserve",
+     "thresholdSource": "CATL Warranty Degradation Limit Protocol"
+    }
+   },
+   {
+    "id": "bess-power-kw",
+    "name": "Battery Net Power (Charge/Discharge)",
+    "unit": "kW",
+    "dataType": "numeric",
+    "expectedSamplingIntervalSeconds": 2,
+    "source": "gateway"
+   }
+  ],
+  "primaryChannelId": "bess-soc"
+ },
+ {
+  "id": "compute-commons",
+  "name": "Compute Commons Modular Cluster",
+  "type": "Modular Data Center",
+  "subtype": "Direct-to-Chip Liquid Cooled High-Density Pod",
+  "domain": "Compute",
+  "description": "Campus AI & scientific computing node running carbon-aware batch workloads and field twin simulations.",
+  "purpose": "Edge compute for field station, biological modeling, and decentralized cryptography",
+  "systemRelationship": "Directly coupled with Spirulina heat reclamation loop",
+  "location": {
+   "parcelId": "p3",
+   "parcelName": "Innovation & Living Lab",
+   "coordinates": {
+    "lat": 26.7205,
+    "lng": 75.5943
+   },
+   "mapPosition": {
+    "x": 490,
+    "y": 195
+   },
+   "hasVerifiedCoordinates": true
+  },
+  "commissioningStatus": "Active",
+  "installationDate": "2025-06-10",
+  "ratedCapacity": 120,
+  "capacityUnit": "kW",
+  "electricalRating": "415V 3-phase, 200A Dedicated Busbar",
+  "operatingRange": {
+   "min": 10,
+   "max": 115,
+   "optimalMin": 40,
+   "optimalMax": 95,
+   "unit": "kW"
+  },
+  "limits": {
+   "minLimit": 5,
+   "maxLimit": 125
+  },
+  "manufacturer": "Submer / Supermicro",
+  "model": "SmartPodX 45U Liquid Immersion / Cold-Plate Hybrid",
+  "serialNumber": "SN-SBM-2025-410",
+  "maintenanceIntervalDays": 60,
+  "lastMaintenanceDate": "2026-10-01",
+  "evidenceClassification": "Measured",
+  "sourceDocument": "Compute Commons Design Architecture Document v3",
+  "sourceDate": "2025-05-15",
+  "responsibleOrg": "Logos × ZuGrama Research Systems",
+  "verificationStatus": "verified",
+  "computeAttributes": {
+   "itLoadKw": 92,
+   "targetPue": 1.14,
+   "targetWue": 0.18,
+   "coolingTopology": "Hybrid Direct-to-Chip cold plate + adiabatic dry cooler",
+   "batchQueueEligible": true,
+   "serverCount": 32,
+   "rackDensityKw": 28
+  },
+  "carbonAccounting": {
+   "emissionFactor": 0.82,
+   "calculationMethod": "Marginal hourly grid emission intensity weighted by batch execution window",
+   "includedInCampusMeter": true,
+   "eligibleForLedger": true
+  },
+  "channels": [
+   {
+    "id": "compute-it-load-kw",
+    "name": "IT Workload Power",
+    "unit": "kW",
+    "dataType": "numeric",
+    "expectedSamplingIntervalSeconds": 2,
+    "source": "gateway",
+    "alertThresholds": {
+     "normalMin": 15,
+     "normalMax": 105,
+     "alarmMin": 5,
+     "alarmMax": 118,
+     "ruleDescription": "Compute IT power nearing branch circuit breaker ceiling",
+     "suggestedAction": "Pause flexible batch queue jobs in Compute Commons scheduler",
+     "thresholdSource": "Electrical Safety Breaker Derating (80% continuous rating)"
+    }
+   },
+   {
+    "id": "compute-pue",
+    "name": "Power Usage Effectiveness (PUE)",
+    "unit": "ratio",
+    "dataType": "numeric",
+    "expectedSamplingIntervalSeconds": 2,
+    "source": "simulation",
+    "alertThresholds": {
+     "normalMin": 1.05,
+     "normalMax": 1.22,
+     "alarmMin": 1,
+     "alarmMax": 1.35,
+     "ruleDescription": "Cooling overhead exceeding environmental design envelope",
+     "suggestedAction": "Check dry cooler fan speeds and clean air intake pre-filters",
+     "thresholdSource": "Dhun Field Station Sustainable IT Target Specification"
+    }
+   }
+  ],
+  "primaryChannelId": "compute-it-load-kw"
+ },
+ {
+  "id": "water-stp-central",
+  "name": "Central Water Hub & MBBR STP",
+  "type": "Wastewater Treatment",
+  "subtype": "MBBR + Ultrafiltration + UV Disinfection",
+  "domain": "Water",
+  "description": "100% closed-loop wastewater recycling plant producing tertiary treated water for landscape and cooling.",
+  "purpose": "Sewage treatment and water reclamation",
+  "location": {
+   "parcelId": "p6",
+   "parcelName": "Ecological Utility Basin",
+   "coordinates": {
+    "lat": 26.7166,
+    "lng": 75.5915
+   },
+   "mapPosition": {
+    "x": 310,
+    "y": 390
+   },
+   "hasVerifiedCoordinates": true
+  },
+  "commissioningStatus": "Active",
+  "installationDate": "2024-04-12",
+  "ratedCapacity": 85,
+  "capacityUnit": "kL/day",
+  "electricalRating": "415V 3-phase, 30 kW Connected Load",
+  "operatingRange": {
+   "min": 10,
+   "max": 75,
+   "optimalMin": 25,
+   "optimalMax": 65,
+   "unit": "kL/day"
+  },
+  "limits": {
+   "minLimit": 0,
+   "maxLimit": 85
+  },
+  "manufacturer": "Thermax",
+  "model": "BioCrest MBBR 85 KLD",
+  "serialNumber": "SN-THX-STP-884",
+  "maintenanceIntervalDays": 45,
+  "lastMaintenanceDate": "2026-09-18",
+  "evidenceClassification": "Measured",
+  "sourceDocument": "CPCB Compliance Certificate & STP As-Built Manual",
+  "sourceDate": "2024-05-10",
+  "responsibleOrg": "ZuGrama Water Works",
+  "verificationStatus": "verified",
+  "channels": [
+   {
+    "id": "stp-flow-rate",
+    "name": "Treated Effluent Flow",
+    "unit": "kL/day",
+    "dataType": "numeric",
+    "expectedSamplingIntervalSeconds": 5,
+    "source": "physical_sensor",
+    "alertThresholds": {
+     "normalMin": 15,
+     "normalMax": 70,
+     "alarmMin": 5,
+     "alarmMax": 82,
+     "ruleDescription": "STP inlet volume nearing hydraulic surge buffer limit",
+     "suggestedAction": "Divert excess greywater to holding reed-bed wetland",
+     "thresholdSource": "Plant Hydraulic Engineering Data Sheet"
+    }
+   },
+   {
+    "id": "stp-bod",
+    "name": "Biochemical Oxygen Demand (BOD)",
+    "unit": "mg/L",
+    "dataType": "numeric",
+    "expectedSamplingIntervalSeconds": 3600,
+    "source": "manual_entry",
+    "alertThresholds": {
+     "normalMin": 2,
+     "normalMax": 8,
+     "alarmMin": 0,
+     "alarmMax": 10,
+     "ruleDescription": "Treated effluent BOD exceeding regulatory discharge limit",
+     "suggestedAction": "Increase blower aeration rate and check dissolved oxygen probes",
+     "thresholdSource": "CPCB Urban Reuse Standards (≤ 10 mg/L)"
+    }
+   }
+  ],
+  "primaryChannelId": "stp-flow-rate"
+ },
+ {
+  "id": "water-harvesting-ponds",
+  "name": "Swales & Cascade Water Bodies",
+  "type": "Catchment & Retention",
+  "subtype": "Contour Swales & Geo-textile Lined Cascade Reservoirs",
+  "domain": "Water",
+  "description": "Extensive campus rainwater catchment system capturing monsoon runoff for annual aquifer recharge.",
+  "purpose": "Campus water self-sufficiency and groundwater table preservation",
+  "location": {
+   "parcelId": "p6",
+   "parcelName": "Ecological Utility Basin",
+   "coordinates": {
+    "lat": 26.7208,
+    "lng": 75.5922
+   },
+   "mapPosition": {
+    "x": 260,
+    "y": 350
+   },
+   "hasVerifiedCoordinates": true
+  },
+  "commissioningStatus": "Active",
+  "installationDate": "2023-11-01",
+  "ratedCapacity": 550000,
+  "capacityUnit": "kL/yr",
+  "operatingRange": {
+   "min": 50000,
+   "max": 550000,
+   "optimalMin": 200000,
+   "optimalMax": 500000,
+   "unit": "kL"
+  },
+  "limits": {
+   "minLimit": 0,
+   "maxLimit": 600000
+  },
+  "evidenceClassification": "Reported",
+  "sourceDocument": "Dhun Hydrological Water Balance Study & Topographic Survey 2023",
+  "sourceDate": "2023-10-15",
+  "responsibleOrg": "ZuGrama Ecological Infrastructure",
+  "verificationStatus": "verified",
+  "channels": [
+   {
+    "id": "reservoir-level-pct",
+    "name": "Cascade Reservoir Level",
+    "unit": "%",
+    "dataType": "numeric",
+    "expectedSamplingIntervalSeconds": 60,
+    "source": "physical_sensor",
+    "alertThresholds": {
+     "normalMin": 25,
+     "normalMax": 95,
+     "alarmMin": 15,
+     "alarmMax": 99,
+     "ruleDescription": "Pond water storage nearing critical seasonal reserve minimum",
+     "suggestedAction": "Enforce strict greywater reuse for landscape irrigation",
+     "thresholdSource": "Annual Monsoon Water Budget 2026"
+    }
+   }
+  ],
+  "primaryChannelId": "reservoir-level-pct"
+ },
+ {
+  "id": "bioreserve-core",
+  "name": "Dhun Ecological Bioreserve Core",
+  "type": "Ecological Sanctuary",
+  "subtype": "Indigenous Semi-Arid Forest & Wildlife Corridor",
+  "domain": "Ecology",
+  "description": "400-acre inviolable native flora sanctuary hosting 300,000+ trees, 180+ bird species, and standing carbon stock.",
+  "purpose": "Biodiversity preservation, micro-climate cooling (−8°C), and ecological sequestration",
+  "location": {
+   "parcelId": "p1",
+   "parcelName": "Protected Bioreserve & Forest Spine",
+   "coordinates": {
+    "lat": 26.7224,
+    "lng": 75.5898
+   },
+   "mapPosition": {
+    "x": 150,
+    "y": 125
+   },
+   "hasVerifiedCoordinates": true
+  },
+  "commissioningStatus": "Active",
+  "installationDate": "2018-01-01",
+  "ratedCapacity": 400,
+  "capacityUnit": "acres",
+  "operatingRange": {
+   "min": 400,
+   "max": 400,
+   "optimalMin": 400,
+   "optimalMax": 400,
+   "unit": "acres"
+  },
+  "limits": {
+   "minLimit": 400,
+   "maxLimit": 400
+  },
+  "evidenceClassification": "Measured",
+  "sourceDocument": "Dhun Masterplan Ecological Covenant & Tree Census 2024",
+  "sourceDate": "2024-03-01",
+  "responsibleOrg": "Dhun Ecological Foundation",
+  "verificationStatus": "verified",
+  "uncertaintyNotes": "Protected standing carbon stock (105k tonnes) is explicitly separated from annual growth removal.",
+  "carbonAccounting": {
+   "embodiedCarbonT": 0,
+   "emissionFactor": 0,
+   "calculationMethod": "3.75 tCO2e/protected acre/year living biomass growth model",
+   "includedInCampusMeter": false,
+   "eligibleForLedger": true
+  },
+  "channels": [
+   {
+    "id": "canopy-temperature-ambient",
+    "name": "Microclimate Ambient Canopy Temperature",
+    "unit": "°C",
+    "dataType": "numeric",
+    "expectedSamplingIntervalSeconds": 10,
+    "source": "physical_sensor"
+   }
+  ],
+  "primaryChannelId": "canopy-temperature-ambient"
+ },
+ {
+  "id": "food-farms",
+  "name": "Permaculture Food Forests & Miyawaki",
+  "type": "Agroforestry & Soil Regeneration",
+  "subtype": "High-Density Miyawaki Plantation + Natural Farming",
+  "domain": "Ecology",
+  "description": "98,000 m² combined organic agroforestry delivering hyper-local food production and soil carbon drawdown.",
+  "purpose": "Local organic food production and rapid canopy establishment",
+  "location": {
+   "parcelId": "p1",
+   "parcelName": "Protected Bioreserve & Forest Spine",
+   "coordinates": {
+    "lat": 26.7238,
+    "lng": 75.5956
+   },
+   "mapPosition": {
+    "x": 300,
+    "y": 82
+   },
+   "hasVerifiedCoordinates": true
+  },
+  "commissioningStatus": "Active",
+  "installationDate": "2021-07-15",
+  "ratedCapacity": 98000,
+  "capacityUnit": "m²",
+  "evidenceClassification": "Reported",
+  "sourceDocument": "Dhun Agricultural Stewardship Report 2025",
+  "sourceDate": "2025-11-20",
+  "responsibleOrg": "ZuGrama Regenerative Agriculture",
+  "verificationStatus": "verified",
+  "carbonAccounting": {
+   "emissionFactor": 0,
+   "calculationMethod": "300 tCO2e/yr net sequestration across 48,000 m² dense Miyawaki canopy",
+   "includedInCampusMeter": false,
+   "eligibleForLedger": true
+  },
+  "channels": [
+   {
+    "id": "soil-organic-carbon",
+    "name": "Soil Organic Matter",
+    "unit": "%",
+    "dataType": "numeric",
+    "expectedSamplingIntervalSeconds": 86400,
+    "source": "manual_entry"
+   }
+  ],
+  "primaryChannelId": "soil-organic-carbon"
+ },
+ {
+  "id": "spirulina-pilot",
+  "name": "Spirulina Algae Photobioreactor Pilot",
+  "type": "Biomass Production",
+  "subtype": "Raceway Pond with Aeration & Waste Heat Coupling",
+  "domain": "Ecology",
+  "description": "Experimental spirulina cultivation utilizing waste thermal energy from Compute Commons and solar power.",
+  "purpose": "High-protein biomass production and carbon dioxide fixation",
+  "systemRelationship": "Hydronically coupled to Compute Commons heat exchanger",
+  "location": {
+   "parcelId": "p3",
+   "parcelName": "Innovation & Living Lab",
+   "coordinates": {
+    "lat": 26.72085,
+    "lng": 75.59455
+   },
+   "mapPosition": {
+    "x": 520,
+    "y": 155
+   },
+   "hasVerifiedCoordinates": true
+  },
+  "commissioningStatus": "Active",
+  "installationDate": "2026-02-14",
+  "ratedCapacity": 15,
+  "capacityUnit": "kW",
+  "electricalRating": "415V 3-phase, 25A",
+  "operatingRange": {
+   "min": 5,
+   "max": 18,
+   "optimalMin": 8,
+   "optimalMax": 14,
+   "unit": "kW"
+  },
+  "limits": {
+   "minLimit": 2,
+   "maxLimit": 20
+  },
+  "evidenceClassification": "Measured",
+  "sourceDocument": "Logos × ZuGrama Algae Cultivation Pilot Protocol v1.4",
+  "sourceDate": "2026-02-01",
+  "responsibleOrg": "Logos Biotechnology Working Group",
+  "verificationStatus": "verified",
+  "channels": [
+   {
+    "id": "spirulina-power-kw",
+    "name": "Paddle Wheel & Sparging Power",
+    "unit": "kW",
+    "dataType": "numeric",
+    "expectedSamplingIntervalSeconds": 2,
+    "source": "physical_sensor"
+   },
+   {
+    "id": "pond-ph",
+    "name": "Cultivation Medium pH",
+    "unit": "pH",
+    "dataType": "numeric",
+    "expectedSamplingIntervalSeconds": 15,
+    "source": "physical_sensor",
+    "alertThresholds": {
+     "normalMin": 9,
+     "normalMax": 10.5,
+     "alarmMin": 8.5,
+     "alarmMax": 11.2,
+     "ruleDescription": "Algal culture pH outside optimal spirulina growth band",
+     "suggestedAction": "Modulate sodium bicarbonate dosing and check sparging flow",
+     "thresholdSource": "Microalgae Biotechnology Standard Operating Procedure"
+    }
+   }
+  ],
+  "primaryChannelId": "spirulina-power-kw"
+ },
+ {
+  "id": "campus-center",
+  "name": "Campus Center & Shared Dining",
+  "type": "Civic Building",
+  "subtype": "Compressed Stabilized Earth Block (CSEB) + Timber",
+  "domain": "Buildings",
+  "description": "Central gathering, kitchen, and dining facility engineered for high thermal mass and natural ventilation.",
+  "purpose": "Community dining, gathering, and town hall operations",
+  "location": {
+   "parcelId": "p2",
+   "parcelName": "Campus Center & Civic Core",
+   "coordinates": {
+    "lat": 26.7196,
+    "lng": 75.59345
+   },
+   "mapPosition": {
+    "x": 375,
+    "y": 175
+   },
+   "hasVerifiedCoordinates": true
+  },
+  "commissioningStatus": "Active",
+  "installationDate": "2023-12-10",
+  "ratedCapacity": 2850,
+  "capacityUnit": "m²",
+  "operatingRange": {
+   "min": 20,
+   "max": 120,
+   "optimalMin": 35,
+   "optimalMax": 90,
+   "unit": "kW"
+  },
+  "limits": {
+   "minLimit": 0,
+   "maxLimit": 140
+  },
+  "evidenceClassification": "Measured",
+  "sourceDocument": "Architectural As-Built Drawings & Energy Metering Audit",
+  "sourceDate": "2024-01-15",
+  "responsibleOrg": "ZuGrama Facilities Management",
+  "verificationStatus": "verified",
+  "carbonAccounting": {
+   "embodiedCarbonT": 641.25,
+   "calculationMethod": "225 kgCO2e/m² upfront CSEB embodied carbon LCA study",
+   "includedInCampusMeter": true,
+   "eligibleForLedger": true
+  },
+  "channels": [
+   {
+    "id": "campus-center-power-kw",
+    "name": "Center Electrical Demand",
+    "unit": "kW",
+    "dataType": "numeric",
+    "expectedSamplingIntervalSeconds": 2,
+    "source": "gateway"
+   }
+  ],
+  "primaryChannelId": "campus-center-power-kw"
+ },
+ {
+  "id": "residence-block-a",
+  "name": "Residence Cluster Alpha",
+  "type": "Residential Cluster",
+  "subtype": "Passive Solar Earth Architecture (G+1)",
+  "domain": "Buildings",
+  "description": "Low-energy residential units featuring cavity-wall insulation and evaporative courtyard passive cooling.",
+  "purpose": "Resident accommodation and field station researcher housing",
+  "location": {
+   "parcelId": "p4",
+   "parcelName": "Residential Neighborhood & Paseos",
+   "coordinates": {
+    "lat": 26.7186,
+    "lng": 75.5938
+   },
+   "mapPosition": {
+    "x": 330,
+    "y": 255
+   },
+   "hasVerifiedCoordinates": true
+  },
+  "commissioningStatus": "Active",
+  "installationDate": "2024-06-01",
+  "ratedCapacity": 4500,
+  "capacityUnit": "m²",
+  "evidenceClassification": "Measured",
+  "sourceDocument": "Phase 1 Residential Commissioning Dossier",
+  "sourceDate": "2024-06-15",
+  "responsibleOrg": "ZuGrama Housing Operations",
+  "verificationStatus": "verified",
+  "carbonAccounting": {
+   "embodiedCarbonT": 1012.5,
+   "calculationMethod": "225 kgCO2e/m² CSEB and lime mortar envelope assessment",
+   "includedInCampusMeter": true,
+   "eligibleForLedger": true
+  },
+  "channels": [
+   {
+    "id": "residence-a-power-kw",
+    "name": "Cluster Active Power",
+    "unit": "kW",
+    "dataType": "numeric",
+    "expectedSamplingIntervalSeconds": 2,
+    "source": "gateway"
+   }
+  ],
+  "primaryChannelId": "residence-a-power-kw"
+ },
+ {
+  "id": "waste-compost-hub",
+  "name": "Solid Waste & Biomethanation Hub",
+  "type": "Waste Recovery",
+  "subtype": "Dry Anaerobic Digestion + Aerobic Windrow Composting",
+  "domain": "Waste",
+  "description": "Decentralized organic kitchen and landscape green waste processing converting solids into bioslurry fertilizer.",
+  "purpose": "Zero-landfill organic matter recovery and soil amendment",
+  "location": {
+   "parcelId": "p6",
+   "parcelName": "Ecological Utility Basin",
+   "coordinates": {
+    "lat": 26.7162,
+    "lng": 75.5928
+   },
+   "mapPosition": {
+    "x": 450,
+    "y": 395
+   },
+   "hasVerifiedCoordinates": true
+  },
+  "commissioningStatus": "Active",
+  "installationDate": "2024-09-01",
+  "ratedCapacity": 2.5,
+  "capacityUnit": "t/day",
+  "evidenceClassification": "Measured",
+  "sourceDocument": "Solid Waste Operations Logbook 2026",
+  "sourceDate": "2026-08-30",
+  "responsibleOrg": "ZuGrama Waste Management",
+  "verificationStatus": "verified",
+  "channels": [
+   {
+    "id": "compost-temp",
+    "name": "Windrow Thermophilic Temperature",
+    "unit": "°C",
+    "dataType": "numeric",
+    "expectedSamplingIntervalSeconds": 300,
+    "source": "physical_sensor",
+    "alertThresholds": {
+     "normalMin": 55,
+     "normalMax": 68,
+     "alarmMin": 45,
+     "alarmMax": 75,
+     "ruleDescription": "Compost windrow temperature outside thermophilic pathogen reduction zone",
+     "suggestedAction": "Aerate pile with mechanical turner and adjust moisture balance",
+     "thresholdSource": "US EPA Part 503 Vector Attraction Reduction Standard"
+    }
+   }
+  ],
+  "primaryChannelId": "compost-temp"
+ },
+ {
+  "id": "solar-expansion-phase2",
+  "name": "Solar Array Extension (West Canopy)",
+  "type": "Solar Photovoltaic",
+  "subtype": "Agro-photovoltaic Canopy",
+  "domain": "Energy",
+  "description": "Planned 650 kWp agrivoltaic solar canopy scheduled for installation in Phase 1 buildout.",
+  "purpose": "Future renewable expansion over parking and nursery areas",
+  "location": {
+   "parcelId": "p5",
+   "parcelName": "Infrastructure & Energy Spine",
+   "coordinates": {
+    "lat": 26.7145,
+    "lng": 75.5968
+   },
+   "mapPosition": {
+    "x": 380,
+    "y": 280
+   },
+   "hasVerifiedCoordinates": true
+  },
+  "commissioningStatus": "Planned",
+  "ratedCapacity": 650,
+  "capacityUnit": "kWp",
+  "evidenceClassification": "Assumed",
+  "sourceDocument": "Dhun Phase 1 Capital Infrastructure Allocation Plan",
+  "sourceDate": "2026-01-10",
+  "responsibleOrg": "Logos Infrastructure Planning",
+  "verificationStatus": "provisional",
+  "channels": [
+   {
+    "id": "planned-solar-gen",
+    "name": "Projected Solar Generation",
+    "unit": "kW",
+    "dataType": "numeric",
+    "expectedSamplingIntervalSeconds": 60,
+    "source": "simulation"
+   }
+  ],
+  "primaryChannelId": "planned-solar-gen"
+ }
+]

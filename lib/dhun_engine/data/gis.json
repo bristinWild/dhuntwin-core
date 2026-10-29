@@ -1,0 +1,1972 @@
+{
+ "ACCESS_CIRCULATION_GEOJSON": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "road-peripheral-ring",
+    "properties": {
+     "name": "Primary Permeable Arterial Ring Road",
+     "category": "Arterial Road",
+     "pavement": "Permeable paver with bioretention median",
+     "widthMeters": 7,
+     "source": "EDS KPI Report Rev 2 (Page 10 & 40)"
+    },
+    "geometry": {
+     "type": "LineString",
+     "coordinates": [
+      [
+       75.587213,
+       26.714002
+      ],
+      [
+       75.587213,
+       26.723387
+      ],
+      [
+       75.589825,
+       26.725192
+      ],
+      [
+       75.596056,
+       26.725192
+      ],
+      [
+       75.599673,
+       26.723748
+      ],
+      [
+       75.599673,
+       26.716168
+      ],
+      [
+       75.597563,
+       26.714002
+      ],
+      [
+       75.587213,
+       26.714002
+      ]
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "path-central-spine",
+    "properties": {
+     "name": "Central Shaded Mobility Spine",
+     "category": "Pedestrian & Electric Mobility",
+     "widthMeters": 4.5,
+     "source": "EDS KPI Report Rev 2 (Page 10)"
+    },
+    "geometry": {
+     "type": "LineString",
+     "coordinates": [
+      [
+       75.588921,
+       26.719597
+      ],
+      [
+       75.593443,
+       26.719597
+      ],
+      [
+       75.597462,
+       26.719597
+      ]
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "path-north-south",
+    "properties": {
+     "name": "North-South Watershed Trail",
+     "category": "Pedestrian Shaded Walkway",
+     "widthMeters": 3,
+     "source": "EDS KPI Report Rev 2 (Page 10)"
+    },
+    "geometry": {
+     "type": "LineString",
+     "coordinates": [
+      [
+       75.593443,
+       26.715085
+      ],
+      [
+       75.593443,
+       26.719597
+      ],
+      [
+       75.593443,
+       26.723929
+      ]
+     ]
+    }
+   }
+  ]
+ },
+ "BIORESERVE_ENVELOPE_400AC": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "bioreserve-400ac",
+    "properties": {
+     "id": "bioreserve_envelope_400ac",
+     "name": "400-Acre Protected Bioreserve Target Envelope",
+     "areaAcres": 400,
+     "areaSqm": 1618742,
+     "source": "Dhun Ecological Restoration Covenant",
+     "authority": "Dhun Ecology Directorate",
+     "status": "Provisional target planning boundary"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.58661,
+        26.717792
+       ],
+       [
+        75.58661,
+        26.723658
+       ],
+       [
+        75.589424,
+        26.725733
+       ],
+       [
+        75.595955,
+        26.725733
+       ],
+       [
+        75.595252,
+        26.722485
+       ],
+       [
+        75.592438,
+        26.720951
+       ],
+       [
+        75.590931,
+        26.718695
+       ],
+       [
+        75.588419,
+        26.717792
+       ],
+       [
+        75.58661,
+        26.717792
+       ]
+      ]
+     ]
+    }
+   }
+  ]
+ },
+ "CONSTRUCTION_ENVELOPE_100AC": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "construction-100ac",
+    "properties": {
+     "id": "construction_envelope_100ac",
+     "name": "≤100-Acre Maximum Permitted Construction Envelope",
+     "areaAcres": 100,
+     "areaSqm": 404686,
+     "source": "Rajasthan R1 Zonal Planning Regulations & Dhun Masterplan",
+     "authority": "Jaipur Development Authority (JDA)",
+     "restriction": "Max building height strictly limited to 12m (tree canopy ceiling)"
+    },
+    "geometry": {
+     "type": "MultiPolygon",
+     "coordinates": [
+      [
+       [
+        [
+         75.592237,
+         26.718243
+        ],
+        [
+         75.592237,
+         26.721041
+        ],
+        [
+         75.595855,
+         26.721041
+        ],
+        [
+         75.595855,
+         26.718243
+        ],
+        [
+         75.592237,
+         26.718243
+        ]
+       ]
+      ],
+      [
+       [
+        [
+         75.596257,
+         26.716709
+        ],
+        [
+         75.596257,
+         26.721582
+        ],
+        [
+         75.599271,
+         26.721582
+        ],
+        [
+         75.599271,
+         26.716709
+        ],
+        [
+         75.596257,
+         26.716709
+        ]
+       ]
+      ]
+     ]
+    }
+   }
+  ]
+ },
+ "CONTOURS_GEOJSON": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "contour-345",
+    "properties": {
+     "elevationMeters": 345,
+     "name": "345m Ridge Contour"
+    },
+    "geometry": {
+     "type": "LineString",
+     "coordinates": [
+      [
+       75.587414,
+       26.723207
+      ],
+      [
+       75.588921,
+       26.724289
+      ],
+      [
+       75.591433,
+       26.72465
+      ],
+      [
+       75.594448,
+       26.72447
+      ]
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "contour-335",
+    "properties": {
+     "elevationMeters": 335,
+     "name": "335m Terrace Contour"
+    },
+    "geometry": {
+     "type": "LineString",
+     "coordinates": [
+      [
+       75.588419,
+       26.720951
+      ],
+      [
+       75.590931,
+       26.721402
+      ],
+      [
+       75.593945,
+       26.721221
+      ],
+      [
+       75.596458,
+       26.720951
+      ],
+      [
+       75.59897,
+       26.72068
+      ]
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "contour-325",
+    "properties": {
+     "elevationMeters": 325,
+     "name": "325m Swale Contour"
+    },
+    "geometry": {
+     "type": "LineString",
+     "coordinates": [
+      [
+       75.589424,
+       26.717792
+      ],
+      [
+       75.592438,
+       26.718243
+      ],
+      [
+       75.595453,
+       26.717973
+      ],
+      [
+       75.597965,
+       26.717612
+      ]
+     ]
+    }
+   }
+  ]
+ },
+ "DHUN_DEFAULT_ZOOM": 15.2,
+ "DHUN_FIRST_PRINCIPLES": [
+  {
+   "id": "p1",
+   "name": "Water Self-Sufficient",
+   "category": "Ecological",
+   "description": "100% on-site rainwater harvesting, cascading retention swales, decentralized wastewater reuse."
+  },
+  {
+   "id": "p2",
+   "name": "Energy Sufficient",
+   "category": "Ecological",
+   "description": "Zero-carbon on-site solar generation, BESS storage, zero fossil-fuel combustion."
+  },
+  {
+   "id": "p3",
+   "name": "Built Using Low-Impact Materials",
+   "category": "Built & Materials",
+   "description": "Stabilized rammed earth, stone masonry, lime plaster, non-toxic localized materials."
+  },
+  {
+   "id": "p4",
+   "name": "Natural Food",
+   "category": "Ecological",
+   "description": "Regenerative agroforestry, organic farm-to-table nutrition, indigenous cropping systems."
+  },
+  {
+   "id": "p5",
+   "name": "Regenerative Ecosystem",
+   "category": "Ecological",
+   "description": "Restoring degraded semi-arid soils into self-healing Miyawaki forests and biodiverse habitat."
+  },
+  {
+   "id": "p6",
+   "name": "Diverse & Intergenerational",
+   "category": "Social & Community",
+   "description": "Spaces welcoming children, elders, makers, researchers, and artisans."
+  },
+  {
+   "id": "p7",
+   "name": "Experimental & Creative",
+   "category": "Human Wellbeing",
+   "description": "Living laboratory for spatial compute, vernacular craftsmanship, and low-energy cooling."
+  },
+  {
+   "id": "p8",
+   "name": "Individual & Social Wellbeing",
+   "category": "Human Wellbeing",
+   "description": "Active walking landscape, community tables, quiet contemplation courtyards."
+  },
+  {
+   "id": "p9",
+   "name": "Contextual Use of Ancient Wisdom",
+   "category": "Built & Materials",
+   "description": "Stepwell hydrology, wind-scoop courtyards, thermal mass adapted to Rajasthan's climate."
+  },
+  {
+   "id": "p10",
+   "name": "Co-Creation with Communities",
+   "category": "Social & Community",
+   "description": "Participatory stewardship with surrounding Chak Gulabpura villages."
+  },
+  {
+   "id": "p11",
+   "name": "Responsible Consumption",
+   "category": "Ecological",
+   "description": "Circular resource tracking, zero single-use plastics, verified carbon boundaries."
+  },
+  {
+   "id": "p12",
+   "name": "Living with Nature",
+   "category": "Ecological",
+   "description": "Bioreserve envelope of 80% untouched land, respecting wild fauna corridors."
+  },
+  {
+   "id": "p13",
+   "name": "Lifelong Learning",
+   "category": "Social & Community",
+   "description": "Field station research, environmental workshops, peer knowledge exchange."
+  },
+  {
+   "id": "p14",
+   "name": "Design & Culture",
+   "category": "Built & Materials",
+   "description": "Timeless architectural elegance celebrating tactile materiality and light."
+  }
+ ],
+ "DHUN_LOOP_GEOJSON": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "dhun-loop-spine",
+    "properties": {
+     "id": "dhun_loop",
+     "name": "The Dhun Loop",
+     "category": "Zero-Emissions Micromobility Spine",
+     "widthMeters": 6,
+     "description": "The Dhun Loop is the unifying spine that connects and services the entire site. It is a public space that threads through various experiences as one travels along it.",
+     "pavement": "Stabilized earth & permeable paving with bio-swale margins",
+     "modes": [
+      "Electric Shuttles",
+      "Cycles & E-bikes",
+      "Pedestrian Shaded Walkways"
+     ],
+     "speedLimitKmh": 15,
+     "source": "Dhun Mobility Masterplan Reference"
+    },
+    "geometry": {
+     "type": "LineString",
+     "coordinates": [
+      [
+       75.588218,
+       26.714544
+      ],
+      [
+       75.588017,
+       26.718514
+      ],
+      [
+       75.58862,
+       26.721582
+      ],
+      [
+       75.590227,
+       26.724289
+      ],
+      [
+       75.591936,
+       26.725192
+      ],
+      [
+       75.594247,
+       26.725372
+      ],
+      [
+       75.596659,
+       26.723929
+      ],
+      [
+       75.598266,
+       26.721221
+      ],
+      [
+       75.598869,
+       26.71707
+      ],
+      [
+       75.597261,
+       26.714363
+      ],
+      [
+       75.593543,
+       26.714002
+      ],
+      [
+       75.590629,
+       26.714002
+      ],
+      [
+       75.588218,
+       26.714544
+      ]
+     ]
+    }
+   }
+  ]
+ },
+ "DHUN_SITE_CENTER": [
+  75.593443,
+  26.719597
+ ],
+ "DHUN_TYPOLOGIES": [
+  {
+   "id": "typ-1",
+   "name": "Detached Villas",
+   "floors": "G+1",
+   "description": "Detached villas have their entrance predominantly towards the central node to encourage resident interaction. Play between levels creates terraces and courtyards.",
+   "features": [
+    "Light well",
+    "Staggered massing",
+    "Private courtyard",
+    "Terraced roof garden"
+   ]
+  },
+  {
+   "id": "typ-2",
+   "name": "Town Houses",
+   "floors": "2 to 3 Stories + Basement",
+   "description": "Town houses vary between 2 to 3 stories including an additional basement creating a cool micro-climate at home. Direct access to private garden and roof terrace.",
+   "features": [
+    "Subterranean cool micro-climate",
+    "Private garden",
+    "Balconies",
+    "Roof terrace"
+   ]
+  },
+  {
+   "id": "typ-3",
+   "name": "Dense Urban Structure",
+   "floors": "G+2 to G+3",
+   "description": "Ensuring natural ventilation of larger blocks in dense urban areas is crucial. Incorporating open courtyards and light wells provides ample daylight and air flow.",
+   "features": [
+    "Open central courtyard",
+    "Light wells",
+    "Cross-ventilation chicanes",
+    "Shaded pedestrian arcades"
+   ]
+  },
+  {
+   "id": "typ-4",
+   "name": "Duplex on Dhun Loop",
+   "floors": "G+1 Duplex",
+   "description": "Duplex units, spanning two stories, situated atop a G+1 dense urban structure along the Dhun Loop. Residents enjoy expansive views of the protected bioreserve.",
+   "features": [
+    "Panoramic bioreserve views",
+    "Direct Dhun Loop access",
+    "Setback terraces",
+    "Angled solar louvers"
+   ]
+  }
+ ],
+ "EXISTING_THICKETS_GEOJSON": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "thicket-north-central",
+    "properties": {
+     "name": "Native Khejri & Rohida Thicket Core",
+     "classification": "Existing Thickets",
+     "canopyCoverPct": 85,
+     "source": "Dhun Blue Green Infrastructure Reference",
+     "fillColor": "#15372D"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.591232,
+        26.720499
+       ],
+       [
+        75.591634,
+        26.722846
+       ],
+       [
+        75.594247,
+        26.722665
+       ],
+       [
+        75.593845,
+        26.720319
+       ],
+       [
+        75.591232,
+        26.720499
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "thicket-south-swale",
+    "properties": {
+     "name": "Acacia Riparian Thicket Buffer",
+     "classification": "Existing Thickets",
+     "canopyCoverPct": 75,
+     "source": "Dhun Blue Green Infrastructure Reference",
+     "fillColor": "#15372D"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.589625,
+        26.716709
+       ],
+       [
+        75.589825,
+        26.717973
+       ],
+       [
+        75.591031,
+        26.717882
+       ],
+       [
+        75.59083,
+        26.716619
+       ],
+       [
+        75.589625,
+        26.716709
+       ]
+      ]
+     ]
+    }
+   }
+  ]
+ },
+ "GREEN_ECOLOGY_GEOJSON": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "green-g4-miyawaki",
+    "properties": {
+     "code": "G4",
+     "name": "Miyawaki Native Dense Forest",
+     "areaSqm": 48000,
+     "areaAcres": 11.86,
+     "canopyTarget": "Dense multi-layer native",
+     "source": "EDS KPI Report Rev 2 (Page 8)"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.588218,
+        26.719146
+       ],
+       [
+        75.588419,
+        26.721221
+       ],
+       [
+        75.590227,
+        26.720951
+       ],
+       [
+        75.590026,
+        26.718875
+       ],
+       [
+        75.588218,
+        26.719146
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "green-g3-bioreserve",
+    "properties": {
+     "code": "G3",
+     "name": "Bioreserve Core Restoration",
+     "areaSqm": 130000,
+     "areaAcres": 32.12,
+     "canopyTarget": "Wild arid biodiversity sanctuary",
+     "source": "EDS KPI Report Rev 2 (Page 8)"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.587414,
+        26.721582
+       ],
+       [
+        75.58862,
+        26.72465
+       ],
+       [
+        75.591936,
+        26.72465
+       ],
+       [
+        75.591333,
+        26.722394
+       ],
+       [
+        75.588419,
+        26.721402
+       ],
+       [
+        75.587414,
+        26.721582
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "green-g2-foodfarms",
+    "properties": {
+     "code": "G2",
+     "name": "Regenerative Food Farms & Orchards",
+     "areaSqm": 50000,
+     "areaAcres": 12.36,
+     "canopyTarget": "Agroforestry permaculture",
+     "source": "EDS KPI Report Rev 2 (Page 8)"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.594247,
+        26.723026
+       ],
+       [
+        75.59485,
+        26.724831
+       ],
+       [
+        75.597261,
+        26.72447
+       ],
+       [
+        75.596659,
+        26.722846
+       ],
+       [
+        75.594247,
+        26.723026
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "green-g1-grassland",
+    "properties": {
+     "code": "G1",
+     "name": "Native Grassland Commons",
+     "areaSqm": 40000,
+     "areaAcres": 9.88,
+     "canopyTarget": "Dhaman / Sevan perennial grasses",
+     "source": "EDS KPI Report Rev 2 (Page 8)"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.587615,
+        26.715807
+       ],
+       [
+        75.588017,
+        26.717973
+       ],
+       [
+        75.589825,
+        26.717612
+       ],
+       [
+        75.589424,
+        26.715446
+       ],
+       [
+        75.587615,
+        26.715807
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "green-g5-thickets",
+    "properties": {
+     "code": "G5",
+     "name": "Open Canopy Thickets",
+     "areaSqm": 40000,
+     "areaAcres": 9.88,
+     "canopyTarget": "Acacia, Khejri, Rohida scrub",
+     "source": "EDS KPI Report Rev 2 (Page 8)"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.597061,
+        26.721763
+       ],
+       [
+        75.597663,
+        26.723929
+       ],
+       [
+        75.599372,
+        26.723658
+       ],
+       [
+        75.598869,
+        26.721582
+       ],
+       [
+        75.597061,
+        26.721763
+       ]
+      ]
+     ]
+    }
+   }
+  ]
+ },
+ "GREEN_FINGERS_GEOJSON": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "finger-west-1",
+    "properties": {
+     "name": "Western Ecological Link Finger",
+     "classification": "Green Fingers",
+     "widthMeters": 40,
+     "source": "Dhun Blue Green Infrastructure Reference",
+     "fillColor": "#A8B996"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.588017,
+        26.718875
+       ],
+       [
+        75.588218,
+        26.719417
+       ],
+       [
+        75.591232,
+        26.719507
+       ],
+       [
+        75.591031,
+        26.718965
+       ],
+       [
+        75.588017,
+        26.718875
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "finger-east-1",
+    "properties": {
+     "name": "Eastern Agrarian Shaded Finger",
+     "classification": "Green Fingers",
+     "widthMeters": 55,
+     "source": "Dhun Blue Green Infrastructure Reference",
+     "fillColor": "#A8B996"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.594046,
+        26.72086
+       ],
+       [
+        75.594247,
+        26.721402
+       ],
+       [
+        75.597864,
+        26.721582
+       ],
+       [
+        75.597663,
+        26.721041
+       ],
+       [
+        75.594046,
+        26.72086
+       ]
+      ]
+     ]
+    }
+   }
+  ]
+ },
+ "PHASE_ONE_PARCELS_GEOJSON": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "p1-res-large",
+    "properties": {
+     "name": "Phase 1 Residential Block South",
+     "classification": "Residential",
+     "areaSqm": 59288,
+     "areaAcres": 14.65,
+     "source": "Dhun Phase One Plan Reference",
+     "fillColor": "#C78F68"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.589926,
+        26.714544
+       ],
+       [
+        75.589926,
+        26.716168
+       ],
+       [
+        75.591835,
+        26.716348
+       ],
+       [
+        75.592036,
+        26.714634
+       ],
+       [
+        75.589926,
+        26.714544
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "p1-tourism",
+    "properties": {
+     "name": "Eco-Tourism & Hospitality Anchor",
+     "classification": "Tourism",
+     "areaSqm": 99749,
+     "areaAcres": 24.65,
+     "source": "Dhun Phase One Plan Reference",
+     "fillColor": "#D9A441"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.592438,
+        26.715807
+       ],
+       [
+        75.592338,
+        26.717973
+       ],
+       [
+        75.59485,
+        26.718153
+       ],
+       [
+        75.595051,
+        26.716168
+       ],
+       [
+        75.592438,
+        26.715807
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "p1-inst",
+    "properties": {
+     "name": "Lifelong Learning & Knowledge Campus",
+     "classification": "Institutional",
+     "areaSqm": 30458,
+     "areaAcres": 7.53,
+     "source": "Dhun Phase One Plan Reference",
+     "fillColor": "#315D78"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.595252,
+        26.717612
+       ],
+       [
+        75.595151,
+        26.719056
+       ],
+       [
+        75.597061,
+        26.718875
+       ],
+       [
+        75.59696,
+        26.717431
+       ],
+       [
+        75.595252,
+        26.717612
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "p1-rec",
+    "properties": {
+     "name": "Community Commons & Recreation Ground",
+     "classification": "Recreational",
+     "areaSqm": 25333,
+     "areaAcres": 6.26,
+     "source": "Dhun Phase One Plan Reference",
+     "fillColor": "#234638"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.592639,
+        26.714363
+       ],
+       [
+        75.59274,
+        26.715626
+       ],
+       [
+        75.594046,
+        26.715626
+       ],
+       [
+        75.593945,
+        26.714363
+       ],
+       [
+        75.592639,
+        26.714363
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "p1-fac-46k",
+    "properties": {
+     "name": "Central Utilities & Resource Hub",
+     "classification": "Facilities",
+     "areaSqm": 46834,
+     "areaAcres": 11.57,
+     "source": "Dhun Phase One Plan Reference",
+     "fillColor": "#15372D"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.595051,
+        26.719056
+       ],
+       [
+        75.595252,
+        26.720319
+       ],
+       [
+        75.597261,
+        26.720138
+       ],
+       [
+        75.597061,
+        26.718875
+       ],
+       [
+        75.595051,
+        26.719056
+       ]
+      ]
+     ]
+    }
+   }
+  ]
+ },
+ "PROPERTY_BOUNDARY_500AC": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "boundary-500ac",
+    "properties": {
+     "id": "property_boundary_500ac",
+     "name": "500-Acre Masterplan Concession Perimeter",
+     "areaAcres": 500,
+     "areaSqm": 2023428,
+     "source": "Dhun Masterplan Concession Brief",
+     "authority": "Dhun Field Station Planning Group",
+     "crs": "EPSG:4326 (WGS 84)"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.586308,
+        26.71319
+       ],
+       [
+        75.586308,
+        26.723929
+       ],
+       [
+        75.589223,
+        26.726004
+       ],
+       [
+        75.596659,
+        26.726004
+       ],
+       [
+        75.600578,
+        26.724289
+       ],
+       [
+        75.600578,
+        26.715536
+       ],
+       [
+        75.598266,
+        26.71319
+       ],
+       [
+        75.586308,
+        26.71319
+       ]
+      ]
+     ]
+    }
+   }
+  ]
+ },
+ "RESIDENTIAL_CLUSTERS_GEOJSON": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "cluster-r1-arth",
+    "properties": {
+     "code": "R1",
+     "name": "Arth Residential Cluster (Phase 1 Priority)",
+     "areaSqm": 66000,
+     "areaAcres": 16.31,
+     "commissioningStatus": "Active",
+     "source": "EDS KPI Report Rev 2 (Page 8)"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.59284,
+        26.717973
+       ],
+       [
+        75.59284,
+        26.719777
+       ],
+       [
+        75.595252,
+        26.719777
+       ],
+       [
+        75.595252,
+        26.717973
+       ],
+       [
+        75.59284,
+        26.717973
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "cluster-r2-creator",
+    "properties": {
+     "code": "R2",
+     "name": "Creator's Village",
+     "areaSqm": 9000,
+     "areaAcres": 2.22,
+     "commissioningStatus": "Active",
+     "source": "EDS KPI Report Rev 2 (Page 8)"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.591333,
+        26.718153
+       ],
+       [
+        75.591333,
+        26.719056
+       ],
+       [
+        75.592338,
+        26.719056
+       ],
+       [
+        75.592338,
+        26.718153
+       ],
+       [
+        75.591333,
+        26.718153
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "cluster-r3-r8-reserve",
+    "properties": {
+     "code": "R3–R8",
+     "name": "Future Residential Clusters R3–R8",
+     "areaSqm": 311000,
+     "areaAcres": 76.85,
+     "commissioningStatus": "Planned",
+     "source": "EDS KPI Report Rev 2 (Page 8)"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.595855,
+        26.717973
+       ],
+       [
+        75.595855,
+        26.721582
+       ],
+       [
+        75.598869,
+        26.721402
+       ],
+       [
+        75.598869,
+        26.717612
+       ],
+       [
+        75.595855,
+        26.717973
+       ]
+      ]
+     ]
+    }
+   }
+  ]
+ },
+ "SURVEYED_BOUNDARY_422AC": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "surveyed-422ac",
+    "properties": {
+     "id": "surveyed_boundary_422ac",
+     "name": "422.01-Acre Surveyed Land-Use Schedule",
+     "areaAcres": 422.01,
+     "areaSqm": 1707800,
+     "source": "EDS Dhun Sustainability KPI Report Rev 2 (Page 10)",
+     "authority": "Environmental Design Solutions",
+     "crs": "EPSG:4326 (WGS 84)",
+     "bufferDiscrepancyAcres": 77.99
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.586911,
+        26.713731
+       ],
+       [
+        75.586911,
+        26.723568
+       ],
+       [
+        75.589625,
+        26.725463
+       ],
+       [
+        75.596357,
+        26.725463
+       ],
+       [
+        75.599975,
+        26.723929
+       ],
+       [
+        75.599975,
+        26.715897
+       ],
+       [
+        75.597864,
+        26.713731
+       ],
+       [
+        75.586911,
+        26.713731
+       ]
+      ]
+     ]
+    }
+   }
+  ]
+ },
+ "UTILITIES_INFRASTRUCTURE_GEOJSON": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "infra-solar-farm",
+    "properties": {
+     "name": "Dhun Solar Farm & PV Carport Precinct",
+     "domain": "Energy",
+     "areaSqm": 161874,
+     "areaAcres": 40,
+     "targetCapacityMWp": 16.8,
+     "phase1InstalledKWp": 100,
+     "source": "EDS KPI Report Rev 2 (Page 10, 83-84)"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.595051,
+        26.713822
+       ],
+       [
+        75.595252,
+        26.717251
+       ],
+       [
+        75.59907,
+        26.71707
+       ],
+       [
+        75.598869,
+        26.713731
+       ],
+       [
+        75.595051,
+        26.713822
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "infra-substation-11kv",
+    "properties": {
+     "name": "Main Receiving Substation (11 kV)",
+     "domain": "Energy",
+     "areaSqm": 1700,
+     "areaAcres": 0.42,
+     "voltage": "11 kV / 415 V",
+     "source": "EDS KPI Report Rev 2 (Page 10)"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.594548,
+        26.717431
+       ],
+       [
+        75.594548,
+        26.717882
+       ],
+       [
+        75.59495,
+        26.717882
+       ],
+       [
+        75.59495,
+        26.717431
+       ],
+       [
+        75.594548,
+        26.717431
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "infra-stp-dewats",
+    "properties": {
+     "name": "Sequencing Batch Reactor (SBR) & DEWATS STP",
+     "domain": "Water",
+     "areaSqm": 9240,
+     "areaAcres": 2.28,
+     "capacityKLDay": 150,
+     "source": "EDS KPI Report Rev 2 (Page 46)"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.591031,
+        26.716168
+       ],
+       [
+        75.591031,
+        26.71707
+       ],
+       [
+        75.592036,
+        26.71707
+       ],
+       [
+        75.592036,
+        26.716168
+       ],
+       [
+        75.591031,
+        26.716168
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "infra-compute-commons",
+    "properties": {
+     "name": "Compute Commons Datacenter Facility",
+     "domain": "Compute",
+     "areaSqm": 4500,
+     "areaAcres": 1.11,
+     "coolingType": "Direct-to-Chip Liquid Cooling",
+     "designPUE": 1.18,
+     "source": "Compute Commons Technical Spec Rev 2.1"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.594247,
+        26.720138
+       ],
+       [
+        75.594247,
+        26.72077
+       ],
+       [
+        75.59495,
+        26.72077
+       ],
+       [
+        75.59495,
+        26.720138
+       ],
+       [
+        75.594247,
+        26.720138
+       ]
+      ]
+     ]
+    }
+   }
+  ]
+ },
+ "WATER_BODIES_GEOJSON": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "lake-central",
+    "properties": {
+     "name": "Central Stormwater Retention Lake",
+     "subType": "Harvesting Reservoir",
+     "areaSqm": 56000,
+     "areaAcres": 13.84,
+     "capacityKL": 120000,
+     "source": "EDS KPI Report Rev 2 (Page 7)"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.591634,
+        26.720048
+       ],
+       [
+        75.592036,
+        26.721041
+       ],
+       [
+        75.593644,
+        26.721492
+       ],
+       [
+        75.594247,
+        26.72086
+       ],
+       [
+        75.593945,
+        26.719958
+       ],
+       [
+        75.592639,
+        26.719687
+       ],
+       [
+        75.591634,
+        26.720048
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "pond-bioreserve",
+    "properties": {
+     "name": "Bioreserve Ecological Swale & Wetland",
+     "subType": "Percolation Wetland",
+     "areaSqm": 38000,
+     "areaAcres": 9.39,
+     "capacityKL": 75000,
+     "source": "EDS KPI Report Rev 2 (Page 7)"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.58862,
+        26.722124
+       ],
+       [
+        75.589223,
+        26.723387
+       ],
+       [
+        75.590529,
+        26.723658
+       ],
+       [
+        75.59083,
+        26.722846
+       ],
+       [
+        75.589825,
+        26.721943
+       ],
+       [
+        75.58862,
+        26.722124
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "pond-south",
+    "properties": {
+     "name": "Southern Infiltration Basin & Lake",
+     "subType": "Aquifer Recharge",
+     "areaSqm": 36000,
+     "areaAcres": 8.89,
+     "capacityKL": 80800,
+     "source": "EDS KPI Report Rev 2 (Page 7)"
+    },
+    "geometry": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        75.592539,
+        26.715807
+       ],
+       [
+        75.593142,
+        26.716709
+       ],
+       [
+        75.594548,
+        26.716529
+       ],
+       [
+        75.59485,
+        26.715446
+       ],
+       [
+        75.593744,
+        26.714995
+       ],
+       [
+        75.592539,
+        26.715807
+       ]
+      ]
+     ]
+    }
+   }
+  ]
+ },
+ "BOUNDARY_RECONCILIATION": {
+  "statedProjectAreaAcres": 500,
+  "surveyedClusterAreaAcres": 422.01,
+  "differenceAcres": 77.99,
+  "differencePercentage": 15.6,
+  "explanation": "The 422.01-acre figure represents the detailed, surveyed land-use cluster schedule (built parcels, designated blue-green networks, utilities, and internal circulation) documented on pages 7–10 of the EDS Dhun Sustainability KPI Report (Rev 2, July 2022). The remaining 77.99 acres constitutes the surrounding outer watershed buffer reserve, peripheral swales, and unallocated conservation margin within the broader 500-acre masterplan concession. As per strict engineering guidelines, these numbers are not artificially forced into alignment.",
+  "sourceDocumentSurvey": "EDS (Environmental Design Solutions) Dhun Sustainability Key Performance Indicators Report (Revision 2, 13 July 2022, Pages 7–10: Land Use Area Sheet).",
+  "sourceDocumentMasterplan": "Dhun Masterplan Concession Agreement & Concept Brief (500 acres at Chak Gulabpura, Phagi Tehsil, Jaipur District).",
+  "crs": "EPSG:4326 (WGS 84 geographic latitude/longitude) / EPSG:32643 (UTM Zone 43N)",
+  "reconciliationStatus": "Documented discrepancy (unreconciled by design)"
+ },
+ "GIS_LAYERS_REGISTRY": [
+  {
+   "id": "bioreserve_envelope_400ac",
+   "name": "400-Acre Protected Bioreserve Target",
+   "category": "Landscape and Ecology",
+   "description": "Inviolable ecological restoration corridor across the northern and western watershed (80% site envelope).",
+   "sourceDocument": "Dhun Masterplan Ecological Covenant & Afforestation Target",
+   "sourceAuthority": "Dhun Ecology Directorate",
+   "surveyDate": "2022-01-10",
+   "crs": "EPSG:4326 (WGS 84)",
+   "units": "Acres",
+   "geometryType": "Polygon",
+   "featureCount": 1,
+   "areaAcres": 400,
+   "areaSqm": 1618742,
+   "verificationStatus": "Provisional",
+   "knownLimitations": "Target planning envelope; detailed boundary currently demarcated across core forest and native bioreserve swales.",
+   "defaultVisible": true,
+   "color": "#234638",
+   "fillOpacity": 0.16
+  },
+  {
+   "id": "existing_thickets",
+   "name": "Existing Native Thickets & Scrub",
+   "category": "Landscape and Ecology",
+   "description": "Preserved mature canopies of Khejri (Prosopis cineraria), Rohida, and Acacia nilotica scrub.",
+   "sourceDocument": "Dhun Blue Green Infrastructure Reference Plan",
+   "sourceAuthority": "Dhun Ecology Directorate",
+   "surveyDate": "2022-07-13",
+   "crs": "EPSG:4326 (WGS 84)",
+   "units": "m²",
+   "geometryType": "Polygon",
+   "featureCount": 2,
+   "areaAcres": 9.88,
+   "areaSqm": 40000,
+   "verificationStatus": "Verified source",
+   "knownLimitations": "Preserved indigenous vegetation; strictly protected from construction disruption.",
+   "defaultVisible": true,
+   "color": "#15372D",
+   "fillOpacity": 0.35
+  },
+  {
+   "id": "green_fingers",
+   "name": "Green Fingers & Ecological Corridors",
+   "category": "Landscape and Ecology",
+   "description": "Radiating linear biophilic corridors connecting residential clusters directly to the central bioreserve.",
+   "sourceDocument": "Dhun Blue Green Infrastructure Reference Plan",
+   "sourceAuthority": "EDS Ecology & Landscape Architecture",
+   "surveyDate": "2022-07-13",
+   "crs": "EPSG:4326 (WGS 84)",
+   "units": "m²",
+   "geometryType": "Polygon",
+   "featureCount": 2,
+   "areaAcres": 12.35,
+   "areaSqm": 50000,
+   "verificationStatus": "Verified source",
+   "knownLimitations": "Designed for wildlife movement and resident walking trails under shaded native canopy.",
+   "defaultVisible": true,
+   "color": "#A8B996",
+   "fillOpacity": 0.3
+  },
+  {
+   "id": "water_bodies",
+   "name": "Water Bodies & Retention Basins (32.12 Acres)",
+   "category": "Water Systems",
+   "description": "Retention lakes, bioreserve ponds P1–P6, recharge basins, and swales totaling 32.12 acres (130,000 m²).",
+   "sourceDocument": "EDS KPI Report Rev 2 (Page 7-8) & Dhun Hydrology Masterplan",
+   "sourceAuthority": "Environmental Design Solutions & Dhun Water Engineering",
+   "surveyDate": "2022-07-13",
+   "crs": "EPSG:4326 (WGS 84)",
+   "units": "m²",
+   "geometryType": "Polygon",
+   "featureCount": 6,
+   "areaAcres": 32.12,
+   "areaSqm": 130000,
+   "verificationStatus": "Verified source",
+   "knownLimitations": "Monsoon retention capacities vary seasonally; annual water harvesting potential is 306,760 kL.",
+   "defaultVisible": true,
+   "color": "#315D78",
+   "fillOpacity": 0.55
+  },
+  {
+   "id": "property_boundary_500ac",
+   "name": "500-Acre Masterplan Concession Perimeter",
+   "category": "Masterplan and Neighbourhoods",
+   "description": "Outer perimeter of the 500-acre masterplan concession envelope at Chak Gulabpura.",
+   "sourceDocument": "Dhun Masterplan Concession & Site Brief",
+   "sourceAuthority": "Dhun Field Station Planning Group",
+   "surveyDate": "2021-11-15",
+   "crs": "EPSG:4326 (WGS 84)",
+   "units": "Acres / Meters",
+   "geometryType": "Polygon",
+   "featureCount": 1,
+   "areaAcres": 500,
+   "areaSqm": 2023428,
+   "verificationStatus": "Verified source",
+   "knownLimitations": "Represents overall concession perimeter; detailed cadastral survey verified 422.01 acres of active cluster allocation.",
+   "defaultVisible": true,
+   "color": "#234638",
+   "fillOpacity": 0.05
+  },
+  {
+   "id": "surveyed_boundary_422ac",
+   "name": "422.01-Acre Surveyed Land-Use Schedule",
+   "category": "Masterplan and Neighbourhoods",
+   "description": "Sum of surveyed internal land-use typologies (Blue, Green, Residential, Mixed, Commercial, Institutional, Utilities).",
+   "sourceDocument": "EDS Dhun Sustainability KPI Report Rev 2 (July 2022), Page 10",
+   "sourceAuthority": "Environmental Design Solutions (EDS)",
+   "surveyDate": "2022-07-13",
+   "crs": "EPSG:4326 (WGS 84)",
+   "units": "Acres / m²",
+   "geometryType": "Polygon",
+   "featureCount": 1,
+   "areaAcres": 422.01,
+   "areaSqm": 1707800,
+   "verificationStatus": "Verified source",
+   "knownLimitations": "Excludes 77.99 acres of outer watershed buffer reserve. Grand total 1,707,800 m² verified against engineering area sheet.",
+   "defaultVisible": true,
+   "color": "#7EAEC1",
+   "fillOpacity": 0.08
+  },
+  {
+   "id": "construction_envelope_100ac",
+   "name": "≤100-Acre Permitted Construction Ceiling",
+   "category": "Masterplan and Neighbourhoods",
+   "description": "Statutory ceiling on total impervious and structural footprint across all residential, commercial, and institutional clusters.",
+   "sourceDocument": "Rajasthan R1 Zonal Planning Regulations & Dhun Environmental Covenant",
+   "sourceAuthority": "Jaipur Development Authority (JDA) / Dhun Masterplan",
+   "surveyDate": "2022-04-05",
+   "crs": "EPSG:4326 (WGS 84)",
+   "units": "Acres",
+   "geometryType": "Polygon",
+   "featureCount": 1,
+   "areaAcres": 100,
+   "areaSqm": 404686,
+   "verificationStatus": "Verified source",
+   "knownLimitations": "Enforces max construction density; building heights strictly restricted to tree canopy ceiling (12m max).",
+   "defaultVisible": true,
+   "color": "#D9A441",
+   "fillOpacity": 0.1
+  },
+  {
+   "id": "dhun_loop",
+   "name": "The Dhun Loop (Mobility Spine)",
+   "category": "Masterplan and Neighbourhoods",
+   "description": "Unifying 6m mobility spine connecting all neighbourhoods with zero-emission transit, cycles, and shaded pedestrian ways.",
+   "sourceDocument": "Dhun Mobility Masterplan Sheet Reference",
+   "sourceAuthority": "Dhun Mobility & Infrastructure Planning",
+   "surveyDate": "2022-07-13",
+   "crs": "EPSG:4326 (WGS 84)",
+   "units": "Meters",
+   "geometryType": "LineString",
+   "featureCount": 1,
+   "verificationStatus": "Verified source",
+   "knownLimitations": "Speed limited to 15 km/h for EV shuttles; no fossil-fuel vehicles permitted.",
+   "defaultVisible": true,
+   "color": "#D9A441",
+   "fillOpacity": 0.9
+  },
+  {
+   "id": "phase_one_parcels",
+   "name": "Phase One Development Parcels",
+   "category": "Masterplan and Neighbourhoods",
+   "description": "Approved Phase One zoning: Residential (59,288 m²), Tourism (99,749 m²), Institutional (30,458 m²), Recreational (25,333 m²), Facilities (46,834 m²).",
+   "sourceDocument": "Dhun Phase One Plan Reference Sheet",
+   "sourceAuthority": "Dhun Development Directorate",
+   "surveyDate": "2022-07-13",
+   "crs": "EPSG:4326 (WGS 84)",
+   "units": "m²",
+   "geometryType": "Polygon",
+   "featureCount": 5,
+   "areaAcres": 64.66,
+   "areaSqm": 261662,
+   "verificationStatus": "Verified source",
+   "knownLimitations": "Phase One development zone; construction adheres to passive thermal massing and solar orientation.",
+   "defaultVisible": true,
+   "color": "#C78F68",
+   "fillOpacity": 0.22
+  },
+  {
+   "id": "residential_clusters",
+   "name": "Residential Clusters R1–R8 (95.38 Acres)",
+   "category": "Masterplan and Neighbourhoods",
+   "description": "Arth R1 (16.31 ac), Creator's Village R2 (2.22 ac), Clusters R3–R8 (76.85 ac) totaling 386,000 m².",
+   "sourceDocument": "EDS KPI Report Rev 2 (Page 8)",
+   "sourceAuthority": "Dhun Masterplan Architecture Team",
+   "surveyDate": "2022-07-13",
+   "crs": "EPSG:4326 (WGS 84)",
+   "units": "Acres / m²",
+   "geometryType": "Polygon",
+   "featureCount": 8,
+   "areaAcres": 95.38,
+   "areaSqm": 386000,
+   "verificationStatus": "Verified source",
+   "knownLimitations": "Phased rollout starting with Phase 1 Arth R1.",
+   "defaultVisible": false,
+   "color": "#C78F68",
+   "fillOpacity": 0.18
+  },
+  {
+   "id": "solar_infrastructure",
+   "name": "Solar PV Farm Precinct (40.0 Acres)",
+   "category": "Energy and Infrastructure",
+   "description": "40.00-acre dedicated utility-scale solar generation zone (161,874 m²) sized for ~16.8 MWp buildout.",
+   "sourceDocument": "EDS KPI Report Rev 2 (Page 10 & 83-84)",
+   "sourceAuthority": "EDS Energy Modeling & Dhun Renewable Systems",
+   "surveyDate": "2022-07-13",
+   "crs": "EPSG:4326 (WGS 84)",
+   "units": "Acres / kWp",
+   "geometryType": "Polygon",
+   "featureCount": 1,
+   "areaAcres": 40,
+   "areaSqm": 161874,
+   "verificationStatus": "Verified source",
+   "knownLimitations": "100 kWp Phase 1 operational, scaling to 16.8 MWp at Full Buildout.",
+   "defaultVisible": true,
+   "color": "#D9A441",
+   "fillOpacity": 0.35
+  },
+  {
+   "id": "substation_grid",
+   "name": "Main Receiving Substation (11 kV)",
+   "category": "Energy and Infrastructure",
+   "description": "0.42-acre main electrical receiving station footprint (1,700 m²) interconnecting with JVVNL 11kV grid feeder.",
+   "sourceDocument": "EDS KPI Report Rev 2 (Page 10)",
+   "sourceAuthority": "Electrical Engineering Design",
+   "surveyDate": "2022-07-13",
+   "crs": "EPSG:4326 (WGS 84)",
+   "units": "m²",
+   "geometryType": "Polygon",
+   "featureCount": 1,
+   "areaAcres": 0.42,
+   "areaSqm": 1700,
+   "verificationStatus": "Verified source",
+   "knownLimitations": "Scope 2 grid carbon accounting boundary meter.",
+   "defaultVisible": true,
+   "color": "#B84F43",
+   "fillOpacity": 0.5
+  },
+  {
+   "id": "stp_dewats",
+   "name": "Decentralized Wastewater STP (DEWATS)",
+   "category": "Energy and Infrastructure",
+   "description": "Decentralized SBR wastewater treatment facility with tertiary filtration and DEWATS root-zone beds (9,240 m²).",
+   "sourceDocument": "EDS KPI Report Rev 2 (Pages 43-46)",
+   "sourceAuthority": "Public Health Engineering Team",
+   "surveyDate": "2022-07-13",
+   "crs": "EPSG:4326 (WGS 84)",
+   "units": "kL/day / m²",
+   "geometryType": "Polygon",
+   "featureCount": 1,
+   "areaAcres": 2.28,
+   "areaSqm": 9240,
+   "verificationStatus": "Verified source",
+   "knownLimitations": "100% of treated wastewater recycled for toilet flushing and landscape irrigation.",
+   "defaultVisible": true,
+   "color": "#315D78",
+   "fillOpacity": 0.4
+  },
+  {
+   "id": "access_roads",
+   "name": "Roads & Permeable Access Network",
+   "category": "Energy and Infrastructure",
+   "description": "Circulation network totaling 150,000 m² with permeable pavers, 24m, 18m, 12m, and 9m rights-of-way.",
+   "sourceDocument": "Dhun Phase One Plan & Mobility Sheets",
+   "sourceAuthority": "Civil Infrastructure & Transportation Planning",
+   "surveyDate": "2022-07-13",
+   "crs": "EPSG:4326 (WGS 84)",
+   "units": "m²",
+   "geometryType": "LineString",
+   "featureCount": 6,
+   "areaAcres": 37.07,
+   "areaSqm": 150000,
+   "verificationStatus": "Verified source",
+   "knownLimitations": "Permeable sub-base design allows rainwater infiltration to sub-soil.",
+   "defaultVisible": true,
+   "color": "#8E9992",
+   "fillOpacity": 0.8
+  },
+  {
+   "id": "registered_assets",
+   "name": "Registered Digital Twin Assets",
+   "category": "Digital Twin Assets",
+   "description": "Physical sensors, meters, inverters, BESS, and weather stations registered in the central asset repository.",
+   "sourceDocument": "Dhun Twin OS Authoritative Registry",
+   "sourceAuthority": "Dhun Field Station Engineering Operations",
+   "surveyDate": "Live State",
+   "crs": "EPSG:4326 (WGS 84)",
+   "units": "Points",
+   "geometryType": "Point",
+   "featureCount": 8,
+   "verificationStatus": "Verified source",
+   "knownLimitations": "Only assets with verified survey coordinates are rendered on the map. Unverified assets are preserved in the unmapped register.",
+   "defaultVisible": true,
+   "color": "#234638",
+   "fillOpacity": 1
+  }
+ ]
+}

@@ -1,0 +1,34 @@
+{
+ "TWIN_STATUS": {
+  "online": {
+   "label": "Online",
+   "color": "#64A882"
+  },
+  "watch": {
+   "label": "Watch",
+   "color": "#D9A03A"
+  },
+  "alarm": {
+   "label": "Alarm",
+   "color": "#D8624F"
+  },
+  "offline": {
+   "label": "Not commissioned",
+   "color": "#868279"
+  }
+ },
+ "METRIC_STATUS": {
+  "normal": {
+   "label": "Normal",
+   "color": "#64A882"
+  },
+  "watch": {
+   "label": "Watch",
+   "color": "#D9A03A"
+  },
+  "alarm": {
+   "label": "Alarm",
+   "color": "#D8624F"
+  }
+ }
+}

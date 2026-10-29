@@ -1,0 +1,33 @@
+{
+ "KWH_PER_MILLION_TOKENS": 0.34,
+ "QUEUE": [
+  {
+   "id": "job-4412",
+   "model": "Llama-3.1 70B · batch infer",
+   "tokensM": 840,
+   "window": "22:00–02:00",
+   "priority": "Batch"
+  },
+  {
+   "id": "job-4413",
+   "model": "Whisper large · 1,200 hr audio",
+   "tokensM": 260,
+   "window": "01:00–04:00",
+   "priority": "Batch"
+  },
+  {
+   "id": "job-4414",
+   "model": "Embedding refresh · campus corpus",
+   "tokensM": 1800,
+   "window": "02:00–05:00",
+   "priority": "Normal"
+  },
+  {
+   "id": "job-4415",
+   "model": "SDXL fine-tune · 8 epochs",
+   "tokensM": 120,
+   "window": "Tonight",
+   "priority": "High"
+  }
+ ]
+}
