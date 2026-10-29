@@ -4,7 +4,9 @@
    unit_*.inc and register themselves through TEST().
    ============================================================ */
 
+#include <algorithm>
 #include <cmath>
+#include <limits>
 #include <functional>
 #include <iostream>
 #include <string>
@@ -76,6 +78,8 @@ void fail(const std::string& what, const char* file, int line)
     } while (0)
 
 #include "unit_foundation.inc"
+#include "unit_live.inc"
+#include "unit_upstream.inc"
 
 int main()
 {

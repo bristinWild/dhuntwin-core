@@ -1,0 +1,27 @@
+{
+  "name": "dhuntwin_core",
+  "display_name": "DhunTwin Core",
+  "version": "0.1.0",
+  "type": "core",
+  "interface": "universal",
+  "category": "infrastructure",
+  "description": "DhunTwin OS engine: evidence-first digital twin of the Logos x ZuGrama field station — campus simulation, carbon ledger, scenarios, compute commons, energy evidence, live telemetry frames and the asset registry.",
+  "author": "Bristin Borah",
+  "license": "MIT OR Apache-2.0",
+  "main": "dhuntwin_core_plugin",
+  "dependencies": [],
+
+  "nix": {
+    "packages": {
+      "build": ["nlohmann_json"],
+      "runtime": []
+    },
+    "external_libraries": [],
+    "cmake": {
+      "find_packages": [],
+      "extra_sources": [],
+      "extra_include_dirs": [],
+      "extra_link_libraries": []
+    }
+  }
+}
