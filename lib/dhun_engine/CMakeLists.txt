@@ -39,6 +39,7 @@ add_library(dhun_engine STATIC
     src/commons.cpp
     src/twin_frame.cpp
     src/registry.cpp
+    src/gis.cpp
     ${DHUN_EMBED_CPP}
 )
 

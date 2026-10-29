@@ -2,6 +2,7 @@
 #include <limits>
 
 #include "dhun/commons.h"
+#include "dhun/gis.h"
 #include "dhun/planning.h"
 #include "dhun/registry.h"
 #include "dhun/simulation.h"
@@ -310,6 +311,46 @@ void registryCase(const Json& golden, Report& r)
     compare(h["allTemplates"], allAssetTemplates(), "ALL_ASSET_TEMPLATES", r);
 }
 
+void gisCase(const Json& golden, Report& r)
+{
+    for (const auto& ring : golden["rings"]) {
+        const auto pts = geoPoints(ring["points"]);
+        const std::string name = ring["name"].get<std::string>();
+        compare(ring["path"], Json(calculatePathDistanceMeters(pts)), "path." + name, r);
+        compare(ring["area"], Json(calculateGeodesicAreaSqm(pts)), "area." + name, r);
+    }
+    for (const auto& d : golden["distances"]) {
+        compare(d["d"], Json(calculateGeodesicDistanceMeters(d["a"]["lat"].get<double>(), d["a"]["lng"].get<double>(),
+                                                              d["b"]["lat"].get<double>(), d["b"]["lng"].get<double>())),
+                "distance", r);
+    }
+    for (const auto& f : golden["formatDistance"]) compare(f["text"], Json(formatDistance(f["m"].get<double>())), "formatDistance", r);
+    for (const auto& f : golden["formatArea"]) compare(f["text"], formatArea(f["sqm"].get<double>()), "formatArea", r);
+    for (const auto& f : golden["dms"]) {
+        compare(f["text"], Json(formatCoordinatesDMS(f["lat"].get<double>(), f["lng"].get<double>())), "dms", r);
+    }
+    for (const auto& f : golden["inside"]) {
+        const auto& p = f["point"];
+        compare(f["inside"], Json(isPointInPolygon({p[0].get<double>(), p[1].get<double>()}, xyPoints(f["polygon"]))),
+                "inside." + f["zone"].get<std::string>(), r);
+    }
+    for (const auto& f : golden["meters"]) {
+        const auto [lng, lat] = localMetersToWgs84(f["dx"].get<double>(), f["dy"].get<double>());
+        compare(f["wgs"], Json::array({lng, lat}), "localMetersToWgs84", r);
+    }
+    compare(golden["params"]["all"], parameterRegistry(), "PARAMETER_REGISTRY", r);
+    for (const auto& w : golden["params"]["workspaces"]) {
+        Json ids = Json::array();
+        for (const auto& p : getParametersByWorkspace(w["w"].get<std::string>())) ids.push_back(p["id"]);
+        compare(w["ids"], ids, "getParametersByWorkspace", r);
+    }
+    for (const auto& q : golden["params"]["searches"]) {
+        Json ids = Json::array();
+        for (const auto& p : searchParameterRegistry(q["q"].get<std::string>())) ids.push_back(p["id"]);
+        compare(q["ids"], ids, "searchParameterRegistry(" + q["q"].get<std::string>() + ")", r);
+    }
+}
+
 }  // namespace
 
 const std::map<std::string, ParityCase>& parityCases()
@@ -320,6 +361,7 @@ const std::map<std::string, ParityCase>& parityCases()
         {"commons", commonsCase},
         {"twin", twinCase},
         {"registry", registryCase},
+        {"gis", gisCase},
     };
     return cases;
 }

@@ -89,6 +89,56 @@ async function main(): Promise<void> {
   await commons();
   await twin();
   await registry();
+  await gis();
+}
+
+/* ---------- GIS and the parameter register ---------- */
+
+async function gis(): Promise<void> {
+  const spatial = await load("gis/spatialUtils.ts");
+  const geo = await load("gis/dhunGeoData.ts");
+  const params = await load("data/parameterRegistry.ts");
+  const zones = await load("data/zones.ts");
+
+  const rings: Array<{ name: string; points: Array<{ lat: number; lng: number }> }> = [];
+  for (const [name, value] of Object.entries(geo)) {
+    const fc = value as { type?: string; features?: Array<{ geometry: { type: string; coordinates: number[][][] | number[][] } }> };
+    if (fc?.type !== "FeatureCollection") continue;
+    fc.features!.forEach((f, i) => {
+      const g = f.geometry;
+      const ring = g.type === "Polygon" ? (g.coordinates as number[][][])[0] : g.type === "LineString" ? (g.coordinates as number[][]) : null;
+      if (ring) rings.push({ name: `${name}[${i}]`, points: ring.map(([lng, lat]) => ({ lat, lng })) });
+    });
+  }
+
+  const samples = [0, 0.4, 12.3456, 999.94, 999.96, 1000, 1534.567, 25000.004];
+  const probes: Array<[number, number]> = [[150, 125], [600, 100], [700, 300], [380, 360], [30, 30], [470, 470], [100, 330]];
+
+  write("gis", {
+    rings: rings.map((r) => ({
+      name: r.name,
+      points: r.points,
+      path: spatial.calculatePathDistanceMeters(r.points),
+      area: spatial.calculateGeodesicAreaSqm(r.points),
+    })),
+    distances: rings.slice(0, 5).map((r) => ({
+      a: r.points[0],
+      b: r.points[1],
+      d: spatial.calculateGeodesicDistanceMeters(r.points[0].lat, r.points[0].lng, r.points[1].lat, r.points[1].lng),
+    })),
+    formatDistance: samples.map((m) => ({ m, text: spatial.formatDistance(m) })),
+    formatArea: [0, 4046.8564224, 2023428, 1707866.5, 123.456].map((sqm) => ({ sqm, text: spatial.formatArea(sqm) })),
+    dms: [[26.719597, 75.593443], [-33.8688, 151.2093], [0, -0.5], [51.5, -0.1278]].map(([lat, lng]) => ({ lat, lng, text: spatial.formatCoordinatesDMS(lat, lng) })),
+    inside: zones.ZONES.flatMap((zone: { id: string; points: Array<[number, number]> }) =>
+      probes.map((p) => ({ zone: zone.id, point: p, polygon: zone.points, inside: spatial.isPointInPolygon(p, zone.points) }))
+    ),
+    meters: [[0, 0], [100, 200], [-711, 711], [1422.5, -3.25]].map(([dx, dy]) => ({ dx, dy, wgs: geo.localMetersToWgs84(dx, dy) })),
+    params: {
+      all: params.PARAMETER_REGISTRY,
+      workspaces: ["Campus", "DigitalTwin", "Ledger", "Scenarios", "Compute", "Nope"].map((w) => ({ w, ids: params.getParametersByWorkspace(w).map((p: { id: string }) => p.id) })),
+      searches: ["", "  GRID ", "measured", "cea", "zzz", "pue"].map((q) => ({ q, ids: params.searchParameterRegistry(q).map((p: { id: string }) => p.id) })),
+    },
+  });
 }
 
 /* ---------- asset registry: repository, telemetry, alerts, test lab ---------- */
