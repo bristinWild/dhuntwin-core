@@ -306,6 +306,217 @@ void write(std::string& out, const Json& value, int indent, int depth)
     }
 }
 
+
+/* ------------------------------------------------------------
+   V8-style JSON.parse error messages. Only consulted when the
+   parser has already rejected the text: walks the grammar the way
+   V8's JsonParser does and reports the first problem with the
+   same wording and position.
+   ------------------------------------------------------------ */
+
+class SyntaxCheck {
+public:
+    explicit SyntaxCheck(std::string_view text) : t(text) {}
+
+    /* empty when the text is valid JSON */
+    std::string run()
+    {
+        try {
+            ws();
+            value();
+            ws();
+            if (i < t.size()) fail("Unexpected non-whitespace character after JSON", i);
+        } catch (const std::string& message) {
+            return message;
+        }
+        return {};
+    }
+
+private:
+    std::string_view t;
+    std::size_t i = 0;
+
+    [[noreturn]] void fail(const std::string& what, std::size_t pos)
+    {
+        std::size_t line = 1, col = 1;
+        for (std::size_t k = 0; k < pos && k < t.size(); ++k) {
+            if (t[k] == '\n') {
+                ++line;
+                col = 1;
+            } else {
+                ++col;
+            }
+        }
+        const bool trailing = what.rfind("after JSON") != std::string::npos;
+        throw what + (trailing ? " at position " : " in JSON at position ") + std::to_string(pos) + " (line " + std::to_string(line) +
+            " column " + std::to_string(col) + ")";
+    }
+
+    [[noreturn]] void unexpected(std::size_t pos)
+    {
+        if (pos >= t.size()) throw std::string("Unexpected end of JSON input");
+        std::string snippet;
+        if (t.size() <= 20) {
+            snippet = "\"" + std::string(t) + "\"";
+        } else {
+            const std::size_t start = pos >= 10 ? pos - 10 : 0;
+            const std::size_t end = std::min(t.size(), pos + 10);
+            snippet = (start > 0 ? "...\"" : "\"") + std::string(t.substr(start, end - start)) +
+                      (end < t.size() ? "\"..." : "\"");
+        }
+        throw "Unexpected token '" + std::string(1, t[pos]) + "', " + snippet + " is not valid JSON";
+    }
+
+    void ws()
+    {
+        while (i < t.size() && (t[i] == ' ' || t[i] == '\t' || t[i] == '\n' || t[i] == '\r')) ++i;
+    }
+
+    void literal(const char* word)
+    {
+        for (const char* c = word; *c; ++c, ++i) {
+            if (i >= t.size() || t[i] != *c) unexpected(i);
+        }
+    }
+
+    bool digit(std::size_t k) const { return k < t.size() && t[k] >= '0' && t[k] <= '9'; }
+
+    void number()
+    {
+        if (t[i] == '-') {
+            ++i;
+            if (!digit(i)) fail("No number after minus sign", i);
+        }
+        if (t[i] == '0') {
+            ++i;
+            if (digit(i)) fail("Unexpected number", i);
+        } else {
+            while (digit(i)) ++i;
+        }
+        if (i < t.size() && t[i] == '.') {
+            ++i;
+            if (!digit(i)) fail("Unterminated fractional number", i);
+            while (digit(i)) ++i;
+        }
+        if (i < t.size() && (t[i] == 'e' || t[i] == 'E')) {
+            ++i;
+            if (i < t.size() && (t[i] == '+' || t[i] == '-')) ++i;
+            if (!digit(i)) fail("Exponent part is missing a number", i);
+            while (digit(i)) ++i;
+        }
+    }
+
+    void string()
+    {
+        ++i;  // opening quote
+        while (true) {
+            if (i >= t.size()) fail("Unterminated string", i);
+            const auto c = static_cast<unsigned char>(t[i]);
+            if (c == '"') {
+                ++i;
+                return;
+            }
+            if (c < 0x20) fail("Bad control character in string literal", i);
+            if (c == '\\') {
+                ++i;
+                if (i >= t.size()) fail("Unterminated string", i);
+                const char e = t[i];
+                if (e == 'u') {
+                    ++i;
+                    for (int k = 0; k < 4; ++k, ++i) {
+                        if (i >= t.size()) fail("Unterminated string", i);
+                        const char h = t[i];
+                        const bool hex = (h >= '0' && h <= '9') || (h >= 'a' && h <= 'f') || (h >= 'A' && h <= 'F');
+                        if (!hex) fail("Bad Unicode escape", i);
+                    }
+                    continue;
+                }
+                if (std::string_view("\"\\/bfnrt").find(e) == std::string_view::npos) {
+                    fail("Bad escaped character", i);
+                }
+            }
+            ++i;
+        }
+    }
+
+    void value()
+    {
+        if (i >= t.size()) unexpected(i);
+        const char c = t[i];
+        switch (c) {
+        case '{': object(); return;
+        case '[': array(); return;
+        case '"': string(); return;
+        case 't': literal("true"); return;
+        case 'f': literal("false"); return;
+        case 'n': literal("null"); return;
+        default:
+            if (c == '-' || (c >= '0' && c <= '9')) {
+                number();
+                return;
+            }
+            unexpected(i);
+        }
+    }
+
+    void array()
+    {
+        ++i;
+        ws();
+        if (i < t.size() && t[i] == ']') {
+            ++i;
+            return;
+        }
+        while (true) {
+            ws();
+            value();
+            ws();
+            if (i >= t.size()) unexpected(i);
+            if (t[i] == ',') {
+                ++i;
+                continue;
+            }
+            if (t[i] == ']') {
+                ++i;
+                return;
+            }
+            fail("Expected ',' or ']' after array element", i);
+        }
+    }
+
+    void object()
+    {
+        ++i;
+        ws();
+        if (i >= t.size()) unexpected(i);
+        if (t[i] == '}') {
+            ++i;
+            return;
+        }
+        if (t[i] != '"') fail("Expected property name or '}'", i);
+        while (true) {
+            string();
+            ws();
+            if (i >= t.size()) unexpected(i);
+            if (t[i] != ':') fail("Expected ':' after property name", i);
+            ++i;
+            ws();
+            value();
+            ws();
+            if (i >= t.size()) unexpected(i);
+            if (t[i] == '}') {
+                ++i;
+                return;
+            }
+            if (t[i] != ',') fail("Expected ',' or '}' after property value", i);
+            ++i;
+            ws();
+            if (i >= t.size()) unexpected(i);
+            if (t[i] != '"') fail("Expected double-quoted property name", i);
+        }
+    }
+};
+
 }  // namespace
 
 double parseFloat(std::string_view raw)
@@ -452,6 +663,17 @@ std::string formatNumber(double value, int minFraction, int maxFraction, bool in
     std::string out = integer;
     if (!fraction.empty()) out += "." + fraction;
     return negative ? "-" + out : out;
+}
+
+std::size_t utf16Length(std::string_view text)
+{
+    std::size_t units = 0;
+    std::size_t i = 0;
+    while (i < text.size()) {
+        const uint32_t cp = decodeUtf8(text, i);
+        units += (cp != 0xFFFFFFFFu && cp >= 0x10000) ? 2 : 1;
+    }
+    return units;
 }
 
 std::string padStart(const std::string& text, std::size_t width, char fill)
@@ -671,9 +893,12 @@ Json parse(std::string_view text)
     try {
         return Json::parse(text.begin(), text.end());
     } catch (const Json::parse_error& error) {
-        std::string message = error.what();
-        const auto colon = message.rfind(": ");
-        if (colon != std::string::npos) message = message.substr(colon + 2);
+        std::string message = SyntaxCheck(text).run();
+        if (message.empty()) {
+            message = error.what();
+            const auto colon = message.rfind(": ");
+            if (colon != std::string::npos) message = message.substr(colon + 2);
+        }
         throw std::runtime_error(message);
     }
 }

@@ -38,6 +38,7 @@ add_library(dhun_engine STATIC
     src/planning.cpp
     src/commons.cpp
     src/twin_frame.cpp
+    src/registry.cpp
     ${DHUN_EMBED_CPP}
 )
 

@@ -1,7 +1,9 @@
 #include "parity_cases.h"
+#include <limits>
 
 #include "dhun/commons.h"
 #include "dhun/planning.h"
+#include "dhun/registry.h"
 #include "dhun/simulation.h"
 #include "dhun/twin_frame.h"
 
@@ -165,6 +167,149 @@ void twinCase(const Json& golden, Report& r)
     }
 }
 
+Json slimBenchmark(const Json& bench)
+{
+    if (bench.is_null()) return nullptr;
+    Json j;
+    j["datasetSize"] = bench["datasetSize"];
+    j["memoryKb"] = bench["memoryKb"];
+    return j;
+}
+
+void registryCase(const Json& golden, Report& r)
+{
+    double now = 0;
+    AssetRegistry reg(stringStorage(), [&now] { return now; });
+
+    const auto& ops = golden["ops"];
+    const auto& results = golden["results"];
+
+    for (std::size_t i = 0; i < ops.size(); ++i) {
+        const Json& op = ops[i];
+        if (op.contains("at")) now = op["at"].get<double>();
+        const std::string name = op["op"].get<std::string>();
+        const std::string where = "op[" + std::to_string(i) + "]." + name;
+        Json got;
+
+        if (name == "snapshot") {
+            got = reg.snapshot();
+            got["testBenchmark"] = slimBenchmark(got["testBenchmark"]);
+        } else if (name == "counts") {
+            got = reg.counts();
+        } else if (name == "record") {
+            got = reg.recordReading(op["params"]).toJson();
+        } else if (name == "csv") {
+            got = reg.importCsvReadings(op["csv"].get<std::string>(), op["assetId"].get<std::string>()).toJson();
+        } else if (name == "history") {
+            const auto a = op["assetId"].get<std::string>();
+            const auto c = op["channelId"].get<std::string>();
+            got["history"] = reg.getHistory(a, c);
+            auto reading = reg.getReading(a, c);
+            got["reading"] = reading ? *reading : Json(nullptr);
+        } else if (name == "add") {
+            const Json asset = createAssetFromTemplate(op["template"], op["params"], now);
+            got["asset"] = asset;
+            got["res"] = reg.addAsset(asset).toJson();
+        } else if (name == "addRaw") {
+            got = reg.addAsset(op["asset"]).toJson();
+        } else if (name == "update") {
+            got = reg.updateAsset(op["asset"]).toJson();
+        } else if (name == "select") {
+            reg.setSelectedAsset(op["id"].get<std::string>());
+            got = nullptr;
+        } else if (name == "delete") {
+            got = reg.deleteAsset(op["id"].get<std::string>());
+        } else if (name == "filter") {
+            got = Json::array();
+            for (const auto& a : reg.filterAssets(op["options"])) got.push_back(a["id"]);
+        } else if (name == "export") {
+            got = reg.exportJson();
+        } else if (name == "import") {
+            got = reg.importJson(op["text"].get<std::string>()).toJson();
+        } else if (name == "reset") {
+            reg.resetDefaults();
+            got = nullptr;
+        } else if (name == "testlab") {
+            const int count = op["count"].get<int>();
+            reg.loadTestScenario(count, std::nullopt);
+            got = count == 0 ? Json(nullptr) : slimBenchmark(reg.testBenchmark());
+        } else if (name == "purge") {
+            got = reg.purgeTestAssets();
+        }
+
+        compare(results[i], got, where, r);
+    }
+
+    /* standalone helpers */
+    const auto& h = golden["helpers"];
+    const double at = 1793268300000.0;
+    compare(h["csv"], parseTelemetryCsv("assetId,channel,value,unit,source\nsolar-central,solar-gen-kw,410,kW,gateway\nx,y,nope,kW,\nshort,row", at),
+            "parseTelemetryCsv", r);
+
+    const Json readings = Json::array({
+        Json::parse(R"({"assetId":"a","channelId":"b","value":1,"timestamp":"t"})"),
+        Json::parse(R"({"assetId":"","channelId":"b","value":1,"timestamp":"t"})"),
+        Json::parse(R"({"assetId":"a","channelId":"b","value":1e999,"timestamp":"t"})", nullptr, false),
+        Json::parse(R"({"assetId":"a","channelId":"b","value":2})"),
+    });
+    Json validated = Json::array();
+    for (std::size_t k = 0; k < readings.size(); ++k) {
+        Json reading = readings[k];
+        if (k == 2) {
+            reading = Json::parse(R"({"assetId":"a","channelId":"b","timestamp":"t"})");
+            reading["value"] = std::numeric_limits<double>::infinity();
+        }
+        validated.push_back(validateTelemetryReading(reading));
+    }
+    compare(h["validate"], validated, "validateTelemetryReading", r);
+
+    Json stale = Json::array();
+    for (const Json& t : {Json("2026-10-29T10:04:00Z"), Json("2026-10-29T10:05:00Z"), Json("x"), Json(1793268290000.0)}) {
+        stale.push_back(detectStaleTelemetry(t, at));
+    }
+    compare(h["stale"], stale, "detectStaleTelemetry", r);
+
+    Json quality = Json::array({
+        evaluateReadingQuality(5, 0, 10, std::nullopt, at),
+        evaluateReadingQuality(-1, 0, 10, std::nullopt, at),
+        evaluateReadingQuality(11, 0, 10, std::nullopt, at),
+        evaluateReadingQuality(5, std::nullopt, std::nullopt, std::string("2026-10-29T09:00:00Z"), at),
+    });
+    compare(h["quality"], quality, "evaluateReadingQuality", r);
+
+    compare(h["hysteresis"],
+            Json::array({isAlertSuppressedByHysteresis(95, 100, 0.05, true),
+                         isAlertSuppressedByHysteresis(94, 100, 0.05, true),
+                         isAlertSuppressedByHysteresis(99, 100, 0.05, false)}),
+            "isAlertSuppressedByHysteresis", r);
+
+    compare(h["perAsset"],
+            evaluateAssetAlerts(initialSeedAssets()[3],
+                                Json::parse(R"({"compute-it-load-kw":{"assetId":"compute-commons","channelId":"compute-it-load-kw","value":130,"unit":"kW","timestamp":"2026-10-29T10:04:00Z","source":"gateway","quality":"good"}})"),
+                                at),
+            "evaluateAssetAlerts", r);
+
+    TestLabConfig config;
+    config.count = 12;
+    config.includeCoordinatesPercentage = 40;
+    config.includeAlertsPercentage = 50;
+    config.datasetTag = "golden";
+    Json lab = generateTestAssets(config, at);
+    lab.erase("benchmark");
+    compare(h["lab"], lab, "generateTestAssets", r);
+
+    TestLabConfig three;
+    three.count = 3;
+    Json tags = Json::array();
+    const Json threeAssets = generateTestAssets(three, at);
+    for (const auto& a : threeAssets["assets"]) tags.push_back(a["testDatasetId"]);
+    compare(h["labDefaultTag"], tags, "testDatasetId", r);
+
+    compare(h["purged"], purgeTestAssetsFromList(Json::parse(R"([{"id":"test-a"},{"id":"b","isTestAsset":true},{"id":"c"}])")),
+            "purgeTestAssetsFromList", r);
+    compare(h["allTemplates"], allAssetTemplates(), "ALL_ASSET_TEMPLATES", r);
+}
+
 }  // namespace
 
 const std::map<std::string, ParityCase>& parityCases()
@@ -174,6 +319,7 @@ const std::map<std::string, ParityCase>& parityCases()
         {"planning", planningCase},
         {"commons", commonsCase},
         {"twin", twinCase},
+        {"registry", registryCase},
     };
     return cases;
 }

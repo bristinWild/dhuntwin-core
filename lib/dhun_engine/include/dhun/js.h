@@ -41,6 +41,9 @@ std::string toFixed(double value, int digits);
    (lakh/crore) when indian is true, otherwise en-US (thousands). */
 std::string formatNumber(double value, int minFraction, int maxFraction, bool indian = true);
 
+/* String#length: UTF-16 code units of UTF-8 text. */
+std::size_t utf16Length(std::string_view text);
+
 /* String.prototype.padStart(width, fill) for ASCII fills. */
 std::string padStart(const std::string& text, std::size_t width, char fill);
 
@@ -72,8 +75,9 @@ double parseFloat(std::string_view text);
    indent 0 means compact. */
 std::string stringify(const Json& value, int indent = 0);
 
-/* JSON.parse; throws std::runtime_error with a message close to V8's
-   on malformed input. */
+/* JSON.parse; on malformed input throws std::runtime_error carrying
+   V8's message ("Unexpected token 'x', "..." is not valid JSON",
+   "Unexpected end of JSON input", ... at position N (line L column C)). */
 Json parse(std::string_view text);
 
 /* Number(value) for a JSON value (numbers, numeric strings, booleans,
