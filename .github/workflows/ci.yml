@@ -1,0 +1,48 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  engine:
+    name: engine tests + TS parity
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchain
+        run: sudo apt-get update && sudo apt-get install -y cmake ninja-build nlohmann-json3-dev
+      - name: Unit, upstream and parity tests
+        env:
+          DHUN_NO_NIX: "1"
+        run: scripts/test-engine.sh
+
+  goldens:
+    name: goldens match upstream DhunTwin-OS
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Re-record from the pinned upstream commit
+        run: scripts/regen-golden.sh
+      - name: No drift
+        run: git diff --exit-code -- lib/dhun_engine/data tests/golden
+
+  module:
+    name: nix build (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-14]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v27
+        with:
+          extra_nix_config: experimental-features = nix-command flakes
+      - name: Build the core module
+        run: nix build -L
+      - name: Module contents
+        run: ls -la result/lib result/include || true
