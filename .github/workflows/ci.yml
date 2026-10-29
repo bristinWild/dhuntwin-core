@@ -16,6 +16,12 @@ jobs:
         env:
           DHUN_NO_NIX: "1"
         run: scripts/test-engine.sh
+      - name: Same, on the C-library float path macOS builds use
+        env:
+          DHUN_NO_NIX: "1"
+          DHUN_BUILD_DIR: build/engine-libc
+          CXXFLAGS: -DDHUN_NO_FLOAT_CHARCONV
+        run: scripts/test-engine.sh
 
   goldens:
     name: goldens match upstream DhunTwin-OS

@@ -8,9 +8,85 @@
 #include <stdexcept>
 #include <vector>
 
+/* Floating-point <charconv> needs macOS 13.3+ in libc++; Basecamp's macOS
+   builds may target older systems. There, the same results come from the C
+   library under a pinned "C" locale (so LC_NUMERIC set by a Qt host cannot
+   turn the decimal point into a comma). */
+#if defined(__APPLE__) || defined(DHUN_NO_FLOAT_CHARCONV)
+#define DHUN_FLOAT_CHARCONV 0
+#include <locale.h>
+#if defined(__APPLE__)
+#include <xlocale.h>
+#endif
+#include <cstdlib>
+#else
+#define DHUN_FLOAT_CHARCONV 1
+#endif
+
 namespace dhun::js {
 
 namespace {
+
+#if !DHUN_FLOAT_CHARCONV
+/* Runs fn with the calling thread switched to the "C" locale. */
+template <typename F>
+auto inCLocale(F&& fn)
+{
+    static locale_t c = newlocale(LC_ALL_MASK, "C", static_cast<locale_t>(nullptr));
+    locale_t previous = uselocale(c);
+    auto result = fn();
+    uselocale(previous);
+    return result;
+}
+#endif
+
+/* Shortest round-trip scientific text of a finite positive double,
+   "d.ddde+XX" (the shape std::to_chars(scientific) produces). */
+std::string scientificShortest(double value)
+{
+#if DHUN_FLOAT_CHARCONV
+    std::array<char, 64> buf{};
+    auto res = std::to_chars(buf.data(), buf.data() + buf.size(), value, std::chars_format::scientific);
+    return std::string(buf.data(), res.ptr);
+#else
+    return inCLocale([value] {
+        char buf[64];
+        for (int precision = 0; precision < 17; ++precision) {
+            std::snprintf(buf, sizeof buf, "%.*e", precision, value);
+            if (std::strtod(buf, nullptr) == value) return std::string(buf);
+        }
+        std::snprintf(buf, sizeof buf, "%.16e", value);
+        return std::string(buf);
+    });
+#endif
+}
+
+/* Exact fixed-point text with `digits` fraction digits. */
+std::string fixedExact(double value, int digits)
+{
+#if DHUN_FLOAT_CHARCONV
+    std::vector<char> buf(1500);
+    auto res = std::to_chars(buf.data(), buf.data() + buf.size(), value, std::chars_format::fixed, digits);
+    return std::string(buf.data(), res.ptr);
+#else
+    return inCLocale([value, digits] {
+        std::vector<char> buf(1500);
+        std::snprintf(buf.data(), buf.size(), "%.*f", digits, value);
+        return std::string(buf.data());
+    });
+#endif
+}
+
+double decimalToDouble(const std::string& number)
+{
+#if DHUN_FLOAT_CHARCONV
+    double value = 0;
+    std::from_chars(number.data(), number.data() + number.size(), value);
+    return value;
+#else
+    return inCLocale([&number] { return std::strtod(number.c_str(), nullptr); });
+#endif
+}
 
 /* Shortest round-trip decimal digits of a finite, positive double:
    value = 0.d1d2...dk × 10^n (ECMAScript Number::toString terms). */
@@ -21,10 +97,7 @@ struct Shortest {
 
 Shortest shortest(double value)
 {
-    std::array<char, 64> buf{};
-    auto res = std::to_chars(buf.data(), buf.data() + buf.size(), value,
-                             std::chars_format::scientific);
-    std::string text(buf.data(), res.ptr);
+    std::string text = scientificShortest(value);
 
     const auto e = text.find('e');
     std::string mantissa = text.substr(0, e);
@@ -555,8 +628,7 @@ double parseFloat(std::string_view raw)
     std::string number = text.substr(start, k - start);
     if (!number.empty() && number.back() == '.') number.pop_back();
     if (!number.empty() && number.front() == '.') number.insert(number.begin(), '0');
-    double value = 0;
-    std::from_chars(number.data(), number.data() + number.size(), value);
+    const double value = decimalToDouble(number);
     return negative ? -value : value;
 }
 
@@ -608,12 +680,8 @@ std::string toFixed(double value, int digits)
     const double x = std::fabs(value);
 
     /* Exact decimal expansion of the binary value. */
-    /* to_chars is locale-independent; printf would follow LC_NUMERIC,
-       which a Qt host sets from the environment. */
-    std::vector<char> buf(1500);
-    auto res = std::to_chars(buf.data(), buf.data() + buf.size(), x,
-                             std::chars_format::fixed, 1100);
-    std::string text(buf.data(), res.ptr);
+    /* exact: every fraction digit of the binary value */
+    std::string text = fixedExact(x, 1100);
 
     const auto dot = text.find('.');
     std::string integer = text.substr(0, dot);
